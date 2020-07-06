@@ -15,6 +15,7 @@ void login::on_pushButton_clicked() {
     main_window.raise();
     main_window.show();
     this->close();
+
   } else {
     // show dialog
     QMessageBox::information(this, "Wrong Info",
