@@ -23,13 +23,8 @@ class login : public QMainWindow {
  private slots:
   void on_pushButton_clicked();
 
-  void on_lineEdit_password_textChanged(const QString &arg1);
-  void on_lineEdit_username_textChanged(const QString &arg1);
-
  private:
   Ui::login *ui;
   MainWindow main_window;
-  QString password;
-  QString username;
 };
 #endif  // LOGIN_H
