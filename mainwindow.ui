@@ -13,12 +13,28 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">#label{
+    image: url(:/resourses/img/student.png);
+   }
+   #progressBar{
+     border: 1px solid gray;
+     border-radius: 4px;
+     text-align: center;
+   }
+   #progressBar::chunk{
+     background-color: green;
+     width: 10px;
+     margin-right: 1px;
+   }
+   </string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>120</x>
-      <y>90</y>
+      <x>130</x>
+      <y>190</y>
       <width>80</width>
       <height>21</height>
      </rect>
@@ -30,9 +46,9 @@
    <widget class="QToolButton" name="toolButton">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>160</y>
-      <width>26</width>
+      <x>130</x>
+      <y>220</y>
+      <width>91</width>
       <height>20</height>
      </rect>
     </property>
@@ -43,8 +59,8 @@
    <widget class="QRadioButton" name="radioButton">
     <property name="geometry">
      <rect>
-      <x>190</x>
-      <y>200</y>
+      <x>130</x>
+      <y>260</y>
       <width>84</width>
       <height>19</height>
      </rect>
@@ -56,8 +72,8 @@
    <widget class="QCommandLinkButton" name="commandLinkButton">
     <property name="geometry">
      <rect>
-      <x>210</x>
-      <y>260</y>
+      <x>120</x>
+      <y>290</y>
       <width>168</width>
       <height>41</height>
      </rect>
@@ -69,8 +85,8 @@
    <widget class="QTableView" name="tableView">
     <property name="geometry">
      <rect>
-      <x>240</x>
-      <y>310</y>
+      <x>320</x>
+      <y>230</y>
       <width>256</width>
       <height>192</height>
      </rect>
@@ -79,11 +95,37 @@
    <widget class="QTableView" name="tableView_2">
     <property name="geometry">
      <rect>
-      <x>190</x>
-      <y>200</y>
+      <x>320</x>
+      <y>10</y>
       <width>256</width>
       <height>192</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>380</x>
+      <y>40</y>
+      <width>141</width>
+      <height>121</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QProgressBar" name="progressBar">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>110</y>
+      <width>118</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="value">
+     <number>24</number>
     </property>
    </widget>
   </widget>
