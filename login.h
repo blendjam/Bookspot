@@ -1,9 +1,12 @@
 #ifndef LOGIN_H
 #define LOGIN_H
 
+#include <QDebug>
+#include <QFileInfo>
 #include <QMainWindow>
 #include <QMessageBox>
 #include <QString>
+#include <QtSql>
 
 #include "mainwindow.h"
 
@@ -14,17 +17,23 @@ class login;
 QT_END_NAMESPACE
 
 class login : public QMainWindow {
-  Q_OBJECT
+    Q_OBJECT
+public:
+    QSqlDatabase userInfo;
 
- public:
-  login(QWidget *parent = nullptr);
-  ~login();
+public:
+    void dbClose();
+    bool dbOpen();
 
- private slots:
-  void on_pushButton_clicked();
+public:
+    login(QWidget* parent = nullptr);
+    ~login();
 
- private:
-  Ui::login *ui;
-  MainWindow main_window;
+private slots:
+    void on_pushButton_clicked();
+
+private:
+    Ui::login* ui;
+
 };
-#endif  // LOGIN_H
+#endif // LOGIN_H
