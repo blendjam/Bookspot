@@ -2,7 +2,6 @@
 #define LOGIN_H
 
 #include <QDebug>
-#include <QFileInfo>
 #include <QMainWindow>
 #include <QMessageBox>
 #include <QString>
@@ -34,6 +33,5 @@ private slots:
 
 private:
     Ui::login* ui;
-
 };
 #endif // LOGIN_H

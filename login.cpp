@@ -7,6 +7,7 @@ login::login(QWidget* parent)
     , ui(new Ui::login)
 {
     ui->setupUi(this);
+    this->setWindowTitle("Bookspot");
 }
 
 bool login::dbOpen()
