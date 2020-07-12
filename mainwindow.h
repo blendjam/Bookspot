@@ -5,6 +5,7 @@
 #include "login.h"
 #include <QDebug>
 #include <QMainWindow>
+#include <vector>
 
 namespace Ui {
 class MainWindow;
@@ -18,14 +19,12 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_pushButton_clicked();
-    void on_pushButton_2_clicked();
 
-    void on_pushButton_3_clicked();
+    void on_pushButton_close_clicked();
 
 private:
     Ui::MainWindow* ui;
-    Box* myBox;
+    std::vector<std::vector<Box*>> myBoxes;
 };
 
 #endif // MAINWINDOW_H

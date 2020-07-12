@@ -11,6 +11,7 @@ private:
     bool active = false;
 
 public:
+    Box();
     Box(const QString& text, QWidget* parent = nullptr);
     void toggleActive();
 public slots:
