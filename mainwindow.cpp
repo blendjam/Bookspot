@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget* parent)
         myBoxes.push_back(std::vector<Box*>());
         for (int j = 0; j < 5; j++) {
             Box* newBox = new Box("", this);
-            newBox->setFixedSize(QSize(100, 100));
+            newBox->setFixedSize(QSize(100, 150));
             myBoxes[i].push_back(newBox);
             ui->gridLayout->addWidget(myBoxes[i][j], i, j);
         }

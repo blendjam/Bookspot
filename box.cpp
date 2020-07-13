@@ -6,11 +6,17 @@ Box::Box(const QString& text, QWidget* parent)
     : QPushButton(text, parent)
 {
     connect(this, &QPushButton::clicked, this, &Box::onClick);
+    this->setCursor(Qt::PointingHandCursor);
 }
 
 void Box::toggleActive()
 {
     active = !active;
+}
+
+bool Box::isActive()
+{
+    return active;
 }
 
 void Box::onClick()

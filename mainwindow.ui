@@ -6,25 +6,64 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>617</width>
-    <height>469</height>
+    <width>622</width>
+    <height>624</height>
    </rect>
+  </property>
+  <property name="font">
+   <font>
+    <family>SansSerif</family>
+   </font>
+  </property>
+  <property name="cursor">
+   <cursorShape>ArrowCursor</cursorShape>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true"/>
+   <string notr="true">
+   MainWindow{
+       background-color: #222831;
+   }
+    Box{
+        border: 5px solid #8c8c8c;
+    }
+    #pushButton_close{
+        background: none;
+        color: #00adb5;
+        border: 2px solid #00adb5;
+        border-radius: 10px;
+    }
+    #pushButton_book{
+        background: #00adb5;
+        color: #eeeeee;
+        font-size: 30px;
+        border-radius: 10px;
+    }
+   
+   </string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QPushButton" name="pushButton_book">
     <property name="geometry">
      <rect>
-      <x>380</x>
+      <x>330</x>
       <y>20</y>
-      <width>101</width>
-      <height>31</height>
+      <width>151</width>
+      <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Calibri</family>
+      <pointsize>-1</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="text">
      <string>Book</string>
@@ -33,23 +72,32 @@
    <widget class="QPushButton" name="pushButton_close">
     <property name="geometry">
      <rect>
-      <x>500</x>
-      <y>20</y>
+      <x>490</x>
+      <y>30</y>
       <width>101</width>
       <height>31</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>Calibri</family>
+      <pointsize>18</pointsize>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
     <property name="text">
-     <string>Check Out</string>
+     <string>Clear</string>
     </property>
    </widget>
    <widget class="QWidget" name="gridLayoutWidget">
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>70</y>
+      <y>90</y>
       <width>581</width>
-      <height>361</height>
+      <height>501</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout" rowstretch="0">
@@ -67,7 +115,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>617</width>
+     <width>622</width>
      <height>20</height>
     </rect>
    </property>
