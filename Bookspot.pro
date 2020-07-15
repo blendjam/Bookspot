@@ -23,7 +23,6 @@ SOURCES += \
 
 HEADERS += \
     box.h \
-    database.h \
     login.h \
     mainwindow.h
 
