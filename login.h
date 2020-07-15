@@ -7,15 +7,15 @@
 #include <QString>
 #include <QtSql>
 
-#include "mainwindow.h"
-
 QT_BEGIN_NAMESPACE
-namespace Ui {
-class login;
+namespace Ui
+{
+    class Login;
 }
 QT_END_NAMESPACE
 
-class login : public QMainWindow {
+class Login : public QMainWindow
+{
     Q_OBJECT
 public:
     QSqlDatabase userInfo;
@@ -25,13 +25,13 @@ public:
     bool dbOpen();
 
 public:
-    login(QWidget* parent = nullptr);
-    ~login();
+    Login(QWidget *parent = nullptr);
+    ~Login();
 
 private slots:
     void on_pushButton_clicked();
 
 private:
-    Ui::login* ui;
+    Ui::Login *ui;
 };
 #endif // LOGIN_H

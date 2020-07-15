@@ -2,14 +2,24 @@
 
 #include "ui_mainwindow.h"
 
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent), ui(new Ui::MainWindow)
+MainWindow::MainWindow(QString username, QWidget *parent)
+    : QMainWindow(parent), ui(new Ui::MainWindow), username(username)
 {
     ui->setupUi(this);
-    for (int i = 0; i < 3; i++)
+
+    if (!userInfo.dbOpen())
+        ui->label->setText("Failed");
+    else
+        ui->label->setText("Opened");
+    setupSpots(3, 5);
+}
+
+void MainWindow::setupSpots(int row, int column)
+{
+    for (int i = 0; i < row; i++)
     {
         myBoxes.push_back(std::vector<Box *>());
-        for (int j = 0; j < 5; j++)
+        for (int j = 0; j < column; j++)
         {
             Box *newBox = new Box("", this);
             newBox->setFixedSize(QSize(100, 150));
@@ -22,24 +32,28 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
-}
-
-const char* MainWindow::getDurationString(std::chrono::duration<float> dur){
-    std::string str = std::to_string(dur.count());
-    return str.c_str();
+    userInfo.dbClose();
 }
 
 void MainWindow::on_pushButton_book_clicked()
 {
-    bookStartTime = std::chrono::high_resolution_clock::now();
+    bookStartTime = std::time(0);
+    QString s = QString::number(bookStartTime);
+    QString commandString = "UPDATE main SET start=" + s + " WHERE username = '" + username + "'";
+    ui->label->setText(s);
+
+    QSqlQuery query;
+    query.exec(commandString);
 }
 
 void MainWindow::on_pushButton_close_clicked()
 {
-    bookEndTime = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<float> duration = bookEndTime - bookStartTime;
+    std::time_t bookEndTime = std::time(0);
 
-    auto durationCharArray = getDurationString(duration);
+    auto difference = bookEndTime - bookStartTime;
 
-    ui->label->setText(durationCharArray);
+    std::string s = std::to_string(difference);
+    const char *timeChar = s.c_str();
+
+    ui->label->setText(timeChar);
 }

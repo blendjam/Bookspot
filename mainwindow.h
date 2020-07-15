@@ -1,40 +1,42 @@
 ﻿#ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "box.h"
-#include <QDebug>
 #include <QMainWindow>
 #include <QGridLayout>
-#include <chrono>
+#include <ctime>
 #include <vector>
+#include <QSqlQuery>
+
+#include "box.h"
+#include "login.h"
 
 namespace Ui
 {
     class MainWindow;
-}
+} // namespace Ui
 
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = nullptr);
+    explicit MainWindow(QString username, QWidget *parent = nullptr);
     ~MainWindow();
 
-private:
-    const char* getDurationString(std::chrono::duration<float> dur);
-
 private slots:
-
     void on_pushButton_book_clicked();
-
     void on_pushButton_close_clicked();
+
+private:
+    void setupSpots(int row, int column);
 
 private:
     Ui::MainWindow *ui;
     std::vector<std::vector<Box *>> myBoxes;
-    std::chrono::_V2::system_clock::time_point bookStartTime;
-    std::chrono::_V2::system_clock::time_point bookEndTime;
+    std::time_t bookStartTime;
+    QString username;
+    int boxCount;
+    Login userInfo;
 };
 
 #endif // MAINWINDOW_H

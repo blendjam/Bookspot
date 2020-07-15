@@ -3,11 +3,11 @@
 
 #include <QApplication>
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-//     login w;
-    MainWindow w;
+    // Login w;
+    MainWindow w("bookspot");
     w.show();
     return a.exec();
 }
