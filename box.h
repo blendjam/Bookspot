@@ -12,10 +12,7 @@ private:
     bool active = false;
 
 public:
-    Box() {}
-    Box(const QString &text, QWidget *parent = nullptr);
-    void toggleActive();
-    bool isActive();
+    Box(QWidget *parent = nullptr);
 public slots:
     void onClick();
 };

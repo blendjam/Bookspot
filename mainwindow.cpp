@@ -21,7 +21,7 @@ void MainWindow::setupSpots(int row, int column)
         myBoxes.push_back(std::vector<Box *>());
         for (int j = 0; j < column; j++)
         {
-            Box *newBox = new Box("", this);
+            Box *newBox = new Box(this);
             newBox->setFixedSize(QSize(100, 150));
             myBoxes[i].push_back(newBox);
             ui->gridLayout->addWidget(myBoxes[i][j], i, j);
@@ -54,5 +54,5 @@ void MainWindow::on_pushButton_close_clicked()
     std::time_t bookEndTime = std::time(0);
     auto difference = bookEndTime - bookStartTime;
     QString timeString = QString::number(difference);
-    ui->label->setText(timeChar);
+    ui->label->setText(timeString);
 }
