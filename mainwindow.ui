@@ -28,6 +28,14 @@
    }
     Box{
         border: 5px solid #8c8c8c;
+        padding: 10px;
+    }
+    Box::checked{
+	    image: url(:/resourses/img/student.png);
+    }
+    Box::indicator{
+        width:0;
+        height:0;
     }
     #pushButton_close{
         background: none;
@@ -72,7 +80,7 @@
       <x>50</x>
       <y>-10</y>
       <width>571</width>
-      <height>101</height>
+      <height>61</height>
      </rect>
     </property>
     <property name="text">

@@ -29,6 +29,7 @@ private slots:
 
 private:
     void setupSpots(int row, int column);
+    void executeQuery(QString queryCommand);
 
 private:
     Ui::MainWindow *ui;

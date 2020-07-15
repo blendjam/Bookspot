@@ -35,25 +35,24 @@ MainWindow::~MainWindow()
     userInfo.dbClose();
 }
 
+void MainWindow::executeQuery(QString queryCommand)
+{
+    QSqlQuery query;
+    query.exec(queryCommand);
+}
+
 void MainWindow::on_pushButton_book_clicked()
 {
     bookStartTime = std::time(0);
     QString s = QString::number(bookStartTime);
     QString commandString = "UPDATE main SET start=" + s + " WHERE username = '" + username + "'";
-    ui->label->setText(s);
-
-    QSqlQuery query;
-    query.exec(commandString);
+    executeQuery(commandString);
 }
 
 void MainWindow::on_pushButton_close_clicked()
 {
     std::time_t bookEndTime = std::time(0);
-
     auto difference = bookEndTime - bookStartTime;
-
-    std::string s = std::to_string(difference);
-    const char *timeChar = s.c_str();
-
+    QString timeString = QString::number(difference);
     ui->label->setText(timeChar);
 }
