@@ -1,13 +1,23 @@
 #include "box.h"
 
 Box::Box(QWidget *parent)
-    : QRadioButton(parent)
+    : QRadioButton(parent),
+      isActive(false)
 {
-    connect(this, &QRadioButton::clicked, this, &Box::onClick);
+    // connect(this, &QRadioButton::clicked, this, &Box::onClick);
     this->setCursor(Qt::PointingHandCursor);
 }
 
-void Box::onClick()
+void Box::setActive(bool value)
 {
-    active = this->isChecked();
+    isActive = value;
+    if (isActive)
+    {
+        this->setStyleSheet("image: url(:/resourses/img/student.png)");
+    }
 }
+
+// void Box::onClick()
+// {
+// isActive = this->isChecked();
+// }

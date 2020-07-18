@@ -9,6 +9,7 @@
 
 #include "box.h"
 #include "login.h"
+#include "user.h"
 
 namespace Ui
 {
@@ -28,16 +29,14 @@ private slots:
     void on_pushButton_close_clicked();
 
 private:
-    void setupSpots(int row, int column);
-    void executeQuery(QString queryCommand);
+    void setupSpots(int **bookedBoxes, int row, int column);
+    QString getSpotCoor();
 
 private:
     Ui::MainWindow *ui;
-    std::vector<std::vector<Box *>> myBoxes;
-    std::time_t bookStartTime;
-    QString username;
-    int boxCount;
-    Login userInfo;
+    std::vector<std::vector<Box *>> m_myBoxes;
+    User m_user;
+    Login m_userInfo;
 };
 
 #endif // MAINWINDOW_H

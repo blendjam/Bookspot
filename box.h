@@ -2,6 +2,7 @@
 #define BOX_H
 
 #include <QRadioButton>
+#include <QMessageBox>
 
 class Box : public QRadioButton
 {
@@ -9,12 +10,14 @@ class Box : public QRadioButton
     Q_OBJECT
 
 private:
-    bool active = false;
+    bool isActive;
 
 public:
     Box(QWidget *parent = nullptr);
+    void setActive(bool value);
+
 public slots:
-    void onClick();
+    // void onClick();
 };
 
 #endif // BOX_H

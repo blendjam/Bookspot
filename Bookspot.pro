@@ -19,12 +19,14 @@ SOURCES += \
     box.cpp \
     main.cpp \
     login.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    user.cpp
 
 HEADERS += \
     box.h \
     login.h \
-    mainwindow.h
+    mainwindow.h \
+    user.h
 
 FORMS += \
     login.ui \

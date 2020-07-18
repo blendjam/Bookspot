@@ -25,14 +25,16 @@ bool Login::dbOpen()
 
 void Login::dbClose()
 {
-    userInfo.removeDatabase(QSqlDatabase::defaultConnection);
     userInfo.close();
+    QSqlDatabase::removeDatabase("QSQLITE");
+
+    return;
 }
 
 Login::~Login()
 {
-    delete ui;
     dbClose();
+    delete ui;
 }
 
 void Login::on_pushButton_clicked()

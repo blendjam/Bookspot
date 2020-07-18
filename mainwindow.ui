@@ -10,6 +10,12 @@
     <height>640</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
   <property name="font">
    <font>
     <family>SansSerif</family>
@@ -48,6 +54,10 @@
         color: #eeeeee;
         font-size: 30px;
         border-radius: 10px;
+    }
+    #pushButton_book::disabled{
+        background: grey;
+        color: #222831;
     }
 #label{
 	color:white;
@@ -106,8 +116,8 @@
      <item>
       <widget class="QPushButton" name="pushButton_close">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-         <horstretch>1</horstretch>
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
@@ -121,15 +131,15 @@
         <cursorShape>PointingHandCursor</cursorShape>
        </property>
        <property name="text">
-        <string>Clear</string>
+        <string>Checkout</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="pushButton_book">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-         <horstretch>2</horstretch>
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
