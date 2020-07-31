@@ -6,7 +6,7 @@ MainWindow::MainWindow(QString username, QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    static int **bookedBoxes = new int *[3];
+    bookedBoxes = new int *[3];
     for (int i = 0; i < 3; i++)
     {
         bookedBoxes[i] = new int[5];
@@ -15,22 +15,14 @@ MainWindow::MainWindow(QString username, QWidget *parent)
             bookedBoxes[i][j] = -1;
         }
     }
+
     if (!m_userInfo.dbOpen())
         ui->label->setText("Failed");
     else
     {
+        bookedBoxes = getBookedBoxes(username);
         QSqlQuery query;
-        QString queryStirng = "SELECT spot FROM main";
-        query.exec(queryStirng);
-        while (query.next())
-        {
-            QSqlRecord record = query.record();
-            int i = record.value(0).toInt() / 10;
-            int j = record.value(0).toInt() % 10;
-            bookedBoxes[i][j] = (QString::number(i) + QString::number(j)).toInt();
-        }
-
-        queryStirng = "SELECT spot, start FROM main WHERE username='" + username + "'";
+        QString queryStirng = "SELECT spot, start FROM main WHERE username='" + username + "'";
         query.exec(queryStirng);
         while (query.next())
         {
@@ -46,21 +38,37 @@ MainWindow::MainWindow(QString username, QWidget *parent)
             {
                 ui->label->setText("Please select a parking spot");
                 ui->pushButton_book->setDisabled(false);
+                ui->pushButton_close->setDisabled(true);
             }
             m_user = User(username, record.value("spot").toInt(), record.value("start").toInt(), booked);
         }
     }
-    setupSpots(bookedBoxes, 3, 5);
+    setupSpots(3, 5);
 }
 
-void MainWindow::setupSpots(int **bookedBoxes, int row, int column)
+int **MainWindow::getBookedBoxes(QString username)
+{
+    QSqlQuery query;
+    QString queryStirng = "SELECT spot FROM main";
+    query.exec(queryStirng);
+    while (query.next())
+    {
+        QSqlRecord record = query.record();
+        int i = record.value(0).toInt() / 10;
+        int j = record.value(0).toInt() % 10;
+        bookedBoxes[i][j] = (QString::number(i) + QString::number(j)).toInt();
+    }
+    return bookedBoxes;
+}
+
+void MainWindow::setupSpots(int row, int column)
 {
     for (int i = 0; i < row; i++)
     {
         m_myBoxes.push_back(std::vector<Box *>());
         for (int j = 0; j < column; j++)
         {
-            int spot = (QString::number(i) + QString::number(j)).toInt();
+            int spot = i * 10 + j;
             Box *newBox = new Box(this);
             newBox->setFixedSize(QSize(100, 150));
             if (m_user.isBooked)
@@ -72,7 +80,6 @@ void MainWindow::setupSpots(int **bookedBoxes, int row, int column)
             if (spot == bookedBoxes[i][j])
             {
                 newBox->setDisabled(true);
-                newBox->setActive(true);
             }
             m_myBoxes[i].push_back(newBox);
             ui->gridLayout->addWidget(m_myBoxes[i][j], i, j);
@@ -88,9 +95,9 @@ MainWindow::~MainWindow()
 
 QString MainWindow::getSpotCoor()
 {
-    for (int i = 0; i < m_myBoxes.size(); i++)
+    for (int i = 0; i < (int)m_myBoxes.size(); i++)
     {
-        for (int j = 0; j < m_myBoxes[i].size(); j++)
+        for (int j = 0; j < (int)m_myBoxes[i].size(); j++)
         {
             if (m_myBoxes[i][j]->isChecked())
             {
@@ -101,25 +108,52 @@ QString MainWindow::getSpotCoor()
     return "";
 }
 
+void MainWindow::disableSpots(QString spot)
+{
+    int i = spot.toInt() / 10;
+    int j = spot.toInt() % 10;
+    m_myBoxes[i][j]->setDisabled(true);
+    for (int i = 0; i < (int)m_myBoxes.size(); i++)
+    {
+        for (int j = 0; j < (int)m_myBoxes[i].size(); j++)
+        {
+            m_myBoxes[i][j]->setCheckable(false);
+            m_myBoxes[i][j]->setCursor(Qt::ArrowCursor);
+        }
+    }
+
+    ui->label->setText("Booked");
+    ui->pushButton_book->setDisabled(true);
+    ui->pushButton_book->setText("Booked");
+}
+
 void MainWindow::on_pushButton_book_clicked()
 {
-    std::time_t now = std::time(0);
-    QString s = QString::number(now);
+    m_user.bookStartTime = std::time(0);
+    QString start = QString::number(m_user.bookStartTime);
     QString spot = getSpotCoor();
-    QString commandString = "UPDATE main SET spot='" + spot + "', start=" + s + " WHERE username = '" + m_user.username + "'";
+    QString commandString = "UPDATE main SET spot='" + spot + "', start=" + start + " WHERE username = '" + m_user.username + "'";
+
     QSqlQuery query;
     query.exec(commandString);
-    this->close();
+    disableSpots(spot);
+
+    ui->pushButton_close->setDisabled(false);
 }
 
 void MainWindow::on_pushButton_close_clicked()
 {
     std::time_t bookEndTime = std::time(0);
     auto difference = bookEndTime - m_user.bookStartTime;
-    QString timeString = QString::number(difference);
+    int seconds = difference % 60;
+    int hours = difference / 60;
+    int minutes = hours % 60;
+    hours /= 60;
+
+    QString timeString = QString::number(hours) + "hr " + QString::number(minutes) + "min " + QString::number(seconds) + "sec";
     ui->label->setText(timeString);
 
-    QString dialogMessage = "Your parked time is: " + QString::number(difference);
+    QString dialogMessage = "Your parked time is: " + timeString;
     auto reply = QMessageBox::information(this, "Close Spot", dialogMessage, QMessageBox::Yes, QMessageBox::No);
     if (reply == QMessageBox::Yes)
     {

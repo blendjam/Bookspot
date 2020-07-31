@@ -29,7 +29,9 @@ private slots:
     void on_pushButton_close_clicked();
 
 private:
-    void setupSpots(int **bookedBoxes, int row, int column);
+    void setupSpots(int row, int column);
+    int **getBookedBoxes(QString username);
+    void disableSpots(QString spot);
     QString getSpotCoor();
 
 private:
@@ -37,6 +39,7 @@ private:
     std::vector<std::vector<Box *>> m_myBoxes;
     User m_user;
     Login m_userInfo;
+    int **bookedBoxes;
 };
 
 #endif // MAINWINDOW_H
