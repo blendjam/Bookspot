@@ -40,7 +40,6 @@ void Login::dbClose()
 
 Login::~Login()
 {
-    dbClose();
     delete ui;
 }
 
