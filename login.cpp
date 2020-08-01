@@ -10,6 +10,13 @@ Login::Login(QWidget *parent)
     this->setWindowTitle("Bookspot");
 }
 
+void Login::setTableName(QString name, int index)
+{
+    QString ID = name.toLower().split(" ").join("") + QString::number(index);
+    tableID = ID;
+    this->setWindowTitle(name);
+}
+
 bool Login::dbOpen()
 {
     userInfo = QSqlDatabase::addDatabase("QSQLITE");
@@ -45,7 +52,7 @@ void Login::on_pushButton_clicked()
     if (dbOpen())
     {
         QSqlQuery qry;
-        qry.prepare("select * from main where username='" + username + "' and password='" + password + "'");
+        qry.prepare("select * from " + tableID + " where username='" + username + "' and password='" + password + "'");
 
         if (qry.exec())
         {
@@ -55,7 +62,7 @@ void Login::on_pushButton_clicked()
 
             if (count == 1)
             {
-                MainWindow *main_window = new MainWindow(username);
+                MainWindow *main_window = new MainWindow(username, tableID);
                 main_window->show();
                 this->close();
             }

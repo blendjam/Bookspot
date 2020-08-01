@@ -17,6 +17,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     box.cpp \
+    locations.cpp \
     main.cpp \
     login.cpp \
     mainwindow.cpp \
@@ -24,11 +25,13 @@ SOURCES += \
 
 HEADERS += \
     box.h \
+    locations.h \
     login.h \
     mainwindow.h \
     user.h
 
 FORMS += \
+    locations.ui \
     login.ui \
     mainwindow.ui
 

@@ -26,6 +26,7 @@ public:
 
 public:
     Login(QWidget *parent = nullptr);
+    void setTableName(QString name, int index);
     ~Login();
 
 private slots:
@@ -33,5 +34,6 @@ private slots:
 
 private:
     Ui::Login *ui;
+    QString tableID;
 };
 #endif // LOGIN_H

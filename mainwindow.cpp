@@ -2,8 +2,8 @@
 
 #include "ui_mainwindow.h"
 
-MainWindow::MainWindow(QString username, QWidget *parent)
-    : QMainWindow(parent), ui(new Ui::MainWindow)
+MainWindow::MainWindow(QString username, QString tableName, QWidget *parent)
+    : QMainWindow(parent), ui(new Ui::MainWindow), tableName(tableName)
 {
     ui->setupUi(this);
     bookedBoxes = new int *[3];
@@ -22,7 +22,7 @@ MainWindow::MainWindow(QString username, QWidget *parent)
     {
         bookedBoxes = getBookedBoxes(username);
         QSqlQuery query;
-        QString queryStirng = "SELECT spot, start FROM main WHERE username='" + username + "'";
+        QString queryStirng = "SELECT spot, start FROM " + tableName + " WHERE username='" + username + "'";
         query.exec(queryStirng);
         while (query.next())
         {
@@ -49,7 +49,7 @@ MainWindow::MainWindow(QString username, QWidget *parent)
 int **MainWindow::getBookedBoxes(QString username)
 {
     QSqlQuery query;
-    QString queryStirng = "SELECT spot FROM main";
+    QString queryStirng = "SELECT spot FROM " + tableName;
     query.exec(queryStirng);
     while (query.next())
     {
@@ -113,6 +113,7 @@ void MainWindow::disableSpots(QString spot)
     int i = spot.toInt() / 10;
     int j = spot.toInt() % 10;
     m_myBoxes[i][j]->setDisabled(true);
+
     for (int i = 0; i < (int)m_myBoxes.size(); i++)
     {
         for (int j = 0; j < (int)m_myBoxes[i].size(); j++)
@@ -132,7 +133,7 @@ void MainWindow::on_pushButton_book_clicked()
     m_user.bookStartTime = std::time(0);
     QString start = QString::number(m_user.bookStartTime);
     QString spot = getSpotCoor();
-    QString commandString = "UPDATE main SET spot='" + spot + "', start=" + start + " WHERE username = '" + m_user.username + "'";
+    QString commandString = "UPDATE " + tableName + " SET spot='" + spot + "', start=" + start + " WHERE username = '" + m_user.username + "'";
 
     QSqlQuery query;
     query.exec(commandString);
@@ -157,7 +158,7 @@ void MainWindow::on_pushButton_close_clicked()
     auto reply = QMessageBox::information(this, "Close Spot", dialogMessage, QMessageBox::Yes, QMessageBox::No);
     if (reply == QMessageBox::Yes)
     {
-        QString commandString = "UPDATE main SET spot= -1, start= -1 WHERE username = '" + m_user.username + "'";
+        QString commandString = "UPDATE " + tableName + " SET spot= -1, start= -1 WHERE username = '" + m_user.username + "'";
         QSqlQuery query;
         query.exec(commandString);
         this->close();
