@@ -130,17 +130,20 @@ void MainWindow::disableSpots(QString spot)
 
 void MainWindow::on_pushButton_book_clicked()
 {
-    m_user.bookStartTime = std::time(0);
-    QString start = QString::number(m_user.bookStartTime);
-    QString spot = getSpotCoor();
-    QString commandString = "UPDATE Users SET spot=" + spot + ", start=" + start + ", location = '" + locationID + "' WHERE username = '" + m_user.username + "'";
-    ui->label->setText(commandString);
-    QSqlQuery query;
-    query.exec(commandString);
+    auto reply= QMessageBox:: information(this, "Confirmation", "Are you sure?", QMessageBox:: Yes, QMessageBox:: No);
+    if(reply==QMessageBox:: Yes){
+        m_user.bookStartTime = std::time(0);
+        QString start = QString::number(m_user.bookStartTime);
+        QString spot = getSpotCoor();
+        QString commandString = "UPDATE Users SET spot=" + spot + ", start=" + start + ", location = '" + locationID + "' WHERE username = '" + m_user.username + "'";
+        ui->label->setText(commandString);
+        QSqlQuery query;
+        query.exec(commandString);
 
-    disableSpots(spot);
+        disableSpots(spot);
 
-    ui->pushButton_close->setDisabled(false);
+        ui->pushButton_close->setDisabled(false);
+    }
 }
 
 void MainWindow::on_pushButton_close_clicked()
