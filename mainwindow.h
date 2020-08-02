@@ -21,7 +21,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QString username, QString tableName, QWidget *parent = nullptr);
+    explicit MainWindow(QString username, QString locationID, QWidget *parent = nullptr);
     ~MainWindow();
 
 private slots:
@@ -30,7 +30,7 @@ private slots:
 
 private:
     void setupSpots(int row, int column);
-    int **getBookedBoxes(QString username);
+    int **getBookedBoxes();
     void disableSpots(QString spot);
     QString getSpotCoor();
 
@@ -40,7 +40,7 @@ private:
     User m_user;
     Login m_userInfo;
     int **bookedBoxes;
-    QString tableName;
+    QString locationID;
 };
 
 #endif // MAINWINDOW_H

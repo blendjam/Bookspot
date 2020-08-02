@@ -1,11 +1,12 @@
 ﻿#include "locations.h"
 #include "ui_locations.h"
 
-Locations::Locations(QWidget *parent) : QDialog(parent),
-                                        ui(new Ui::Locations)
+Locations::Locations(QString username, QWidget *parent) : QDialog(parent),
+                                                          ui(new Ui::Locations),
+                                                          username(username)
 {
     ui->setupUi(this);
-    if (!loginDialog.dbOpen())
+    if (!userInfo.dbOpen())
     {
         qDebug() << "Failed To connect";
     }
@@ -37,10 +38,22 @@ void Locations::on_pushButton_clicked()
     auto currentItem = ui->listView->currentIndex();
     int index = currentItem.row();
     QString name = currentItem.data().toString();
-    if (index != -1)
+    QString ID = name.toLower().split(" ").join("") + QString::number(index);
+    QSqlQuery query;
+    if (query.exec("SELECT location from Users WHERE username ='" + username + "'"))
     {
-        loginDialog.setTableName(name, index);
-        loginDialog.show();
-        this->close();
+        query.next();
+        QSqlRecord record = query.record();
+        QString location = record.value(0).toString();
+        if (location != NULL && location != ID)
+        {
+            QMessageBox::warning(this, "Already Booked", "You already have booked a spot in another Location");
+        }
+        else if (index != -1)
+        {
+            main_window = new MainWindow(username, ID);
+            main_window->show();
+            this->close();
+        }
     }
 }

@@ -1,9 +1,8 @@
 ﻿#include "mainwindow.h"
-
 #include "ui_mainwindow.h"
 
-MainWindow::MainWindow(QString username, QString tableName, QWidget *parent)
-    : QMainWindow(parent), ui(new Ui::MainWindow), tableName(tableName)
+MainWindow::MainWindow(QString username, QString locationID, QWidget *parent)
+    : QMainWindow(parent), ui(new Ui::MainWindow), locationID(locationID)
 {
     ui->setupUi(this);
     bookedBoxes = new int *[3];
@@ -20,9 +19,9 @@ MainWindow::MainWindow(QString username, QString tableName, QWidget *parent)
         ui->label->setText("Failed");
     else
     {
-        bookedBoxes = getBookedBoxes(username);
+        bookedBoxes = getBookedBoxes();
         QSqlQuery query;
-        QString queryStirng = "SELECT spot, start FROM " + tableName + " WHERE username='" + username + "'";
+        QString queryStirng = "SELECT spot, start FROM Users WHERE username='" + username + "'";
         query.exec(queryStirng);
         while (query.next())
         {
@@ -43,13 +42,14 @@ MainWindow::MainWindow(QString username, QString tableName, QWidget *parent)
             m_user = User(username, record.value("spot").toInt(), record.value("start").toInt(), booked);
         }
     }
+    qDebug() << m_user.username << m_user.spot << m_user.bookStartTime << m_user.isBooked;
     setupSpots(3, 5);
 }
 
-int **MainWindow::getBookedBoxes(QString username)
+int **MainWindow::getBookedBoxes()
 {
     QSqlQuery query;
-    QString queryStirng = "SELECT spot FROM " + tableName;
+    QString queryStirng = "SELECT spot FROM Users WHERE location = '" + locationID + "'";
     query.exec(queryStirng);
     while (query.next())
     {
@@ -123,7 +123,7 @@ void MainWindow::disableSpots(QString spot)
         }
     }
 
-    ui->label->setText("Booked");
+    // ui->label->setText("Booked");
     ui->pushButton_book->setDisabled(true);
     ui->pushButton_book->setText("Booked");
 }
@@ -133,10 +133,11 @@ void MainWindow::on_pushButton_book_clicked()
     m_user.bookStartTime = std::time(0);
     QString start = QString::number(m_user.bookStartTime);
     QString spot = getSpotCoor();
-    QString commandString = "UPDATE " + tableName + " SET spot='" + spot + "', start=" + start + " WHERE username = '" + m_user.username + "'";
-
+    QString commandString = "UPDATE Users SET spot=" + spot + ", start=" + start + ", location = '" + locationID + "' WHERE username = '" + m_user.username + "'";
+    ui->label->setText(commandString);
     QSqlQuery query;
     query.exec(commandString);
+
     disableSpots(spot);
 
     ui->pushButton_close->setDisabled(false);
@@ -158,7 +159,7 @@ void MainWindow::on_pushButton_close_clicked()
     auto reply = QMessageBox::information(this, "Close Spot", dialogMessage, QMessageBox::Yes, QMessageBox::No);
     if (reply == QMessageBox::Yes)
     {
-        QString commandString = "UPDATE " + tableName + " SET spot= -1, start= -1 WHERE username = '" + m_user.username + "'";
+        QString commandString = "UPDATE Users SET spot= -1, start= -1, location='' WHERE username = '" + m_user.username + "' AND location = '" + locationID + "'";
         QSqlQuery query;
         query.exec(commandString);
         this->close();

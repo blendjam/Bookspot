@@ -3,17 +3,19 @@
 
 #include <ctime>
 #include <QString>
+#include <QDebug>
 
 class User
 {
 
 public:
-    User(QString username = "", int spot = -1, int startTime = -1, bool booked = false);
+    User() {}
+    User(QString name, int spot, int start, bool booked);
 
 public:
-    std::time_t bookStartTime;
     QString username;
     int spot;
+    std::time_t bookStartTime;
     bool isBooked;
 };
 

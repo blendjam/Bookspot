@@ -1,5 +1,9 @@
 #include "user.h"
 
-User::User(QString username, int spot, int startTime, bool booked) : username(username), spot(spot), bookStartTime(startTime), isBooked(booked)
+User::User(QString name, int spot, int startTime, bool booked)
 {
+    this->username = name;
+    this->spot = spot;
+    this->bookStartTime = startTime;
+    this->isBooked = booked;
 }

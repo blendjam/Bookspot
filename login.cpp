@@ -1,5 +1,5 @@
 ﻿#include "login.h"
-#include "mainwindow.h"
+#include "locations.h"
 
 #include "ui_login.h"
 
@@ -8,13 +8,6 @@ Login::Login(QWidget *parent)
 {
     ui->setupUi(this);
     this->setWindowTitle("Bookspot");
-}
-
-void Login::setTableName(QString name, int index)
-{
-    QString ID = name.toLower().split(" ").join("") + QString::number(index);
-    tableID = ID;
-    this->setWindowTitle(name);
 }
 
 bool Login::dbOpen()
@@ -51,7 +44,7 @@ void Login::on_pushButton_clicked()
     if (dbOpen())
     {
         QSqlQuery qry;
-        qry.prepare("select * from " + tableID + " where username='" + username + "' and password='" + password + "'");
+        qry.prepare("select * from Users where username='" + username + "' and password='" + password + "'");
 
         if (qry.exec())
         {
@@ -61,8 +54,8 @@ void Login::on_pushButton_clicked()
 
             if (count == 1)
             {
-                MainWindow *main_window = new MainWindow(username, tableID);
-                main_window->show();
+                Locations *location_window = new Locations(username);
+                location_window->show();
                 this->close();
             }
             else

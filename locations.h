@@ -2,7 +2,9 @@
 #define LOCATIONS_H
 
 #include <QDialog>
-#include "login.h"
+#include <QSqlQuery>
+#include <QMessageBox>
+#include "mainwindow.h"
 
 namespace Ui
 {
@@ -14,7 +16,7 @@ class Locations : public QDialog
     Q_OBJECT
 
 public:
-    explicit Locations(QWidget *parent = nullptr);
+    explicit Locations(QString username, QWidget *parent = nullptr);
     ~Locations();
 
 private slots:
@@ -22,7 +24,9 @@ private slots:
 
 private:
     Ui::Locations *ui;
-    Login loginDialog;
+    MainWindow *main_window;
+    QString username;
+    Login userInfo;
 };
 
 #endif // LOCATIONS_H
