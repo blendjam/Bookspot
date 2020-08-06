@@ -3,6 +3,8 @@
 
 #include <QDialog>
 #include <QSqlQuery>
+#include <QSqlQueryModel>
+#include <QSqlRecord>
 #include <QMessageBox>
 #include "mainwindow.h"
 
@@ -22,11 +24,15 @@ public:
 private slots:
     void on_pushButton_clicked();
 
+    void on_pushButton_2_clicked();
+
+    void on_comboBox_city_currentIndexChanged(const QString &arg1);
+
 private:
     Ui::Locations *ui;
     MainWindow *main_window;
     QString username;
-    Login userInfo;
+    QString currentCity;
 };
 
 #endif // LOCATIONS_H
