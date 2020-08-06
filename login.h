@@ -1,4 +1,4 @@
-﻿#ifndef LOGIN_H
+#ifndef LOGIN_H
 #define LOGIN_H
 
 #include <QDebug>
@@ -35,6 +35,6 @@ private slots:
 
 private:
     Ui::Login *ui;
-    bool isRegistering;
 };
 #endif // LOGIN_H
+
