@@ -8,7 +8,6 @@
 #include <QSqlQuery>
 
 #include "box.h"
-#include "login.h"
 #include "user.h"
 
 namespace Ui
@@ -28,6 +27,8 @@ private slots:
     void on_pushButton_book_clicked();
     void on_pushButton_close_clicked();
 
+    void on_pushButton_back_clicked();
+
 private:
     void setupSpots(int row, int column);
     int **getBookedBoxes();
@@ -38,7 +39,6 @@ private:
     Ui::MainWindow *ui;
     std::vector<std::vector<Box *>> m_myBoxes;
     User m_user;
-    Login m_userInfo;
     int **bookedBoxes;
     QString locationID;
 };

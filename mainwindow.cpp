@@ -1,5 +1,6 @@
 ﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "locations.h"
 
 MainWindow::MainWindow(QString username, QString locationID, QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow), locationID(locationID)
@@ -15,34 +16,30 @@ MainWindow::MainWindow(QString username, QString locationID, QWidget *parent)
         }
     }
 
-    if (!m_userInfo.dbOpen())
-        ui->label->setText("Failed");
-    else
+    bookedBoxes = getBookedBoxes();
+    QSqlQuery query;
+    QString queryStirng = "SELECT spot, start FROM Users WHERE username='" + username + "'";
+    query.exec(queryStirng);
+    while (query.next())
     {
-        bookedBoxes = getBookedBoxes();
-        QSqlQuery query;
-        QString queryStirng = "SELECT spot, start FROM Users WHERE username='" + username + "'";
-        query.exec(queryStirng);
-        while (query.next())
+        QSqlRecord record = query.record();
+        bool booked = (record.value("spot").toInt() != -1);
+        if (booked)
         {
-            QSqlRecord record = query.record();
-            bool booked = (record.value("spot").toInt() != -1);
-            if (booked)
-            {
-                ui->label->setText("Already Booked");
-                ui->pushButton_book->setDisabled(true);
-                ui->pushButton_book->setText("Booked");
-            }
-            else
-            {
-                ui->label->setText("Please select a parking spot");
-                ui->pushButton_book->setDisabled(false);
-                ui->pushButton_close->setDisabled(true);
-            }
-            m_user = User(username, record.value("spot").toInt(), record.value("start").toInt(), booked);
+            ui->label->setText("Already Booked");
+            ui->pushButton_book->setDisabled(true);
+            ui->pushButton_book->setText("Booked");
         }
+        else
+        {
+            ui->label->setText("Please select a parking spot");
+            ui->pushButton_book->setDisabled(false);
+            ui->pushButton_close->setDisabled(true);
+        }
+        m_user = User(username, record.value("spot").toInt(), record.value("start").toInt(), booked);
     }
-    qDebug() << m_user.username << m_user.spot << m_user.bookStartTime << m_user.isBooked;
+
+    //    qDebug() << m_user.username << m_user.spot << m_user.bookStartTime << m_user.isBooked;
     setupSpots(3, 5);
 }
 
@@ -90,7 +87,6 @@ void MainWindow::setupSpots(int row, int column)
 MainWindow::~MainWindow()
 {
     delete ui;
-    m_userInfo.dbClose();
 }
 
 QString MainWindow::getSpotCoor()
@@ -130,8 +126,8 @@ void MainWindow::disableSpots(QString spot)
 
 void MainWindow::on_pushButton_book_clicked()
 {
-    auto reply= QMessageBox:: information(this, "Confirmation", "Are you sure?", QMessageBox:: Yes, QMessageBox:: No);
-    if(reply==QMessageBox:: Yes){
+    auto reply= QMessageBox::information(this, "Confirmation", "Are you sure?", QMessageBox::Yes, QMessageBox::No);
+    if (reply==QMessageBox::Yes) {
         m_user.bookStartTime = std::time(0);
         QString start = QString::number(m_user.bookStartTime);
         QString spot = getSpotCoor();
@@ -162,9 +158,18 @@ void MainWindow::on_pushButton_close_clicked()
     auto reply = QMessageBox::information(this, "Close Spot", dialogMessage, QMessageBox::Yes, QMessageBox::No);
     if (reply == QMessageBox::Yes)
     {
-        QString commandString = "UPDATE Users SET spot= -1, start= -1, location='' WHERE username = '" + m_user.username + "' AND location = '" + locationID + "'";
+        QString commandString = "UPDATE Users SET spot= -1, start= -1, location='', city ='' WHERE username = '" + m_user.username + "' AND location = '" + locationID + "'";
         QSqlQuery query;
         query.exec(commandString);
+        Locations * locationDialog = new Locations(m_user.username);
+        locationDialog->show();
         this->close();
     }
+}
+
+void MainWindow::on_pushButton_back_clicked()
+{
+    Locations * locationDialog = new Locations(m_user.username);
+    locationDialog->show();
+    this->close();
 }

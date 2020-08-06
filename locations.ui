@@ -17,8 +17,8 @@
    <property name="geometry">
     <rect>
      <x>530</x>
-     <y>430</y>
-     <width>80</width>
+     <y>440</y>
+     <width>81</width>
      <height>21</height>
     </rect>
    </property>
@@ -26,14 +26,52 @@
     <string>Open</string>
    </property>
   </widget>
-  <widget class="QListView" name="listView">
+  <widget class="QPushButton" name="pushButton_2">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>30</y>
-     <width>581</width>
-     <height>381</height>
+     <x>40</x>
+     <y>20</y>
+     <width>80</width>
+     <height>21</height>
     </rect>
+   </property>
+   <property name="text">
+    <string>Logout</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="comboBox_city">
+   <property name="geometry">
+    <rect>
+     <x>510</x>
+     <y>20</y>
+     <width>91</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QTableView" name="tableView">
+   <property name="geometry">
+    <rect>
+     <x>35</x>
+     <y>71</y>
+     <width>571</width>
+     <height>351</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="horizontalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOff</enum>
+   </property>
+   <property name="sizeAdjustPolicy">
+    <enum>QAbstractScrollArea::AdjustToContents</enum>
+   </property>
+   <property name="autoScroll">
+    <bool>false</bool>
    </property>
   </widget>
  </widget>
