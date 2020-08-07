@@ -38,11 +38,12 @@ Login::~Login()
 
 void Login::on_pushButton_clicked()
 {
-        QSqlQuery qry;
+    QSqlQuery qry;
     QString username = ui->lineEdit_username->text();
     QString password = ui->lineEdit_password->text();
-                Locations *location_window = new Locations(username);
-    if(!isRegistering){
+    Locations *location_window = new Locations(username);
+
+    if (!isRegistering) {
         qry.prepare("select * from Users where username='" + username + "' and password='" + password + "'");
 
         if (qry.exec())
@@ -59,30 +60,41 @@ void Login::on_pushButton_clicked()
             else
             {
                 QMessageBox::warning(this, "Wrong Info",
-                                     "username or password didn't match");
+                    "username or password didn't match");
             }
         }
 
-    } else {
+    }
+    else if (qry.exec("select * from Users where username='" + username + "' and password='" + password + "'")) {
+        int count = 0;
+        while (qry.next()) {
+            count++;
+        }
+        if (count == 1) {
+            QMessageBox::warning(this, "Overlap",
+                "Username already exists");
+        }
+        else {
+            QString commandString = "INSERT INTO Users (username, password, spot,start ) VALUES('"+username+"', '"+password+"', -1, -1)";
+            if (qry.exec(commandString)) {
+                QMessageBox::information(this, "Success!!", "You have been successfully registered");
+                isRegistering = false;
+                ui->pushButton_2->setDisabled(false);
+                ui->loginTitle->setText("Login");
+                location_window->show();
+                this->close();
+            }
+            else {
 
-        QString commandString = "INSERT INTO Users (username, password, spot,start ) VALUES('"+username+"', '"+password+"', -1, -1)";
-        if(qry.exec(commandString)){
-            QMessageBox::information(this, "Success!!", "You have been successfully registered");
-            isRegistering = false;
-            ui->pushButton_2->setDisabled(false);
-            ui->loginTitle->setText("Login");
-            location_window->show();
-            this->close();
-        } else {
-
-            QMessageBox::warning(this, "Failed!!", "Something went wrong");
+                QMessageBox::warning(this, "Failed!!", "Something went wrong");
+            }
         }
     }
 }
 
 void Login::on_pushButton_2_clicked()
 {
-   ui->loginTitle->setText("Register");
-   ui->pushButton_2->setDisabled(true);
+    ui->loginTitle->setText("Register");
+    ui->pushButton_2->setDisabled(true);
     isRegistering = true;
 }

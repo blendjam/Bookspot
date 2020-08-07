@@ -20,7 +20,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QString username, QString locationID, QWidget *parent = nullptr);
+    explicit MainWindow(QString username, QString locationID, QString city, QWidget *parent = nullptr);
     ~MainWindow();
 
 private slots:
@@ -41,6 +41,7 @@ private:
     User m_user;
     int **bookedBoxes;
     QString locationID;
+    QString city;
 };
 
 #endif // MAINWINDOW_H

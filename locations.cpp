@@ -38,19 +38,18 @@ void Locations::on_pushButton_clicked()
     QSqlQuery query;
     if (query.exec("SELECT location, city FROM Users WHERE username ='" + username + "'"))
     {
-
         query.next();
         QSqlRecord record = query.record();
         QString location = record.value("location").toString();
         QString city = record.value("city").toString();
 
-        if (location != NULL && city != NULL && location != locationID || city != currentCity)
+        if (location != "" && city != "" && location != locationID)
         {
             QMessageBox::warning(this, "Already Booked", "You already have booked a spot in another Location");
         }
         else if (index != -1)
         {
-            main_window = new MainWindow(username, locationID);
+            main_window = new MainWindow(username, locationID, currentCity);
             main_window->show();
             this->close();
         }
