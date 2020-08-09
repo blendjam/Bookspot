@@ -29,7 +29,7 @@
    <property name="geometry">
     <rect>
      <x>220</x>
-     <y>300</y>
+     <y>330</y>
      <width>75</width>
      <height>23</height>
     </rect>
@@ -42,7 +42,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>80</y>
+     <y>110</y>
      <width>281</width>
      <height>201</height>
     </rect>
@@ -147,6 +147,19 @@
    </property>
    <property name="text">
     <string>SIGN UP</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_2">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>330</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Back</string>
    </property>
   </widget>
  </widget>
