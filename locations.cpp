@@ -58,9 +58,12 @@ void Locations::on_pushButton_clicked()
 
 void Locations::on_pushButton_2_clicked()
 {
-    Login* loginWindow = new Login();
-    loginWindow->show();
-    this->close();
+    auto reply = QMessageBox::information(this,"Confirmation","Are you sure?", QMessageBox:: Yes, QMessageBox:: No);
+    if(reply == QMessageBox:: Yes){
+        Login* loginWindow = new Login();
+        loginWindow->show();
+        this->close();
+    }
 }
 
 

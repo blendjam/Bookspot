@@ -1,4 +1,4 @@
-﻿#include "mainwindow.h"
+#include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "locations.h"
 
@@ -118,8 +118,6 @@ void MainWindow::disableSpots(QString spot)
             m_myBoxes[i][j]->setCursor(Qt::ArrowCursor);
         }
     }
-
-    // ui->label->setText("Booked");
     ui->pushButton_book->setDisabled(true);
     ui->pushButton_book->setText("Booked");
 }
@@ -151,14 +149,15 @@ void MainWindow::on_pushButton_close_clicked()
     int hours = difference / 60;
     int minutes = hours % 60;
     hours /= 60;
-
     QString timeString = QString::number(hours) + "hr " + QString::number(minutes) + "min " + QString::number(seconds) + "sec";
     ui->label->setText(timeString);
-
-    QString dialogMessage = "Your parked time is: " + timeString;
+    QString money = QString::number(((hours*60) + minutes) * 1);
+    QString message = "Your parking fee is: Rs " + money;
+    QString dialogMessage = "You parked your vehicle for: " + timeString + "\n" "Do you want to checkout?";
     auto reply = QMessageBox::information(this, "Close Spot", dialogMessage, QMessageBox::Yes, QMessageBox::No);
     if (reply == QMessageBox::Yes)
     {
+        QMessageBox::information(this, "Cost", message);
         QString commandString = "UPDATE Users SET spot= -1, start= -1, location='', city ='' WHERE username = '" + m_user.username + "' AND location = '" + locationID + "'";
         QSqlQuery query;
         query.exec(commandString);
