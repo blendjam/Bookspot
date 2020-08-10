@@ -6,7 +6,7 @@
 #include <QString>
 
 namespace Ui {
-class Signup;
+    class Signup;
 }
 
 class Signup : public QDialog
@@ -16,9 +16,6 @@ class Signup : public QDialog
 public:
     QSqlDatabase userinfo;
 
-public:
-    bool dbOpen();
-    void dbClose();
 public:
     explicit Signup(QWidget *parent = nullptr);
     ~Signup();

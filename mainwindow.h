@@ -25,7 +25,6 @@ public:
 
 private slots:
     void on_pushButton_book_clicked();
-    void on_pushButton_close_clicked();
 
     void on_pushButton_back_clicked();
 
@@ -42,6 +41,7 @@ private:
     int **bookedBoxes;
     QString locationID;
     QString city;
+    bool isAdmin;
 };
 
 #endif // MAINWINDOW_H

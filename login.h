@@ -1,4 +1,4 @@
-#ifndef LOGIN_H
+﻿#ifndef LOGIN_H
 #define LOGIN_H
 
 #include <QDebug>
@@ -33,8 +33,11 @@ private slots:
 
     void on_pushButton_2_clicked();
 
+    void on_actionAdmin_triggered();
+
 private:
     Ui::Login *ui;
+    bool isAdminLogin;
 };
 #endif // LOGIN_H
 
