@@ -28,6 +28,8 @@ private slots:
 
     void on_comboBox_city_currentIndexChanged(const QString &arg1);
 
+    void handleDoubleClicked(const QModelIndex &index);
+
 private:
     Ui::Locations *ui;
     MainWindow *main_window;

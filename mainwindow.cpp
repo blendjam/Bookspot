@@ -3,9 +3,15 @@
 #include "locations.h"
 
 MainWindow::MainWindow(QString username, QString locationID, QString city, QWidget *parent)
-    : QMainWindow(parent), ui(new Ui::MainWindow), locationID(locationID), city (city)
+    : QMainWindow(parent), ui(new Ui::MainWindow), locationID(locationID), city(city)
 {
     ui->setupUi(this);
+    if (username == "ADMINADMIN") {
+        isAdmin = true;
+        ui->pushButton_book->hide();
+        ui->pushButton_back->setText("Close");
+    }
+
     bookedBoxes = new int *[3];
     for (int i = 0; i < 3; i++)
     {
@@ -34,7 +40,6 @@ MainWindow::MainWindow(QString username, QString locationID, QString city, QWidg
         {
             ui->label->setText("Please select a parking spot");
             ui->pushButton_book->setDisabled(false);
-            ui->pushButton_close->setDisabled(true);
         }
         m_user = User(username, record.value("spot").toInt(), record.value("start").toInt(), booked);
     }
@@ -46,7 +51,7 @@ MainWindow::MainWindow(QString username, QString locationID, QString city, QWidg
 int **MainWindow::getBookedBoxes()
 {
     QSqlQuery query;
-    QString queryStirng = "SELECT spot FROM Users WHERE location = '" + locationID + "'AND city = '"+city+"'";
+    QString queryStirng = "SELECT spot FROM Users WHERE location = '" + locationID + "' AND city = '"+city+"'";
     query.exec(queryStirng);
     while (query.next())
     {
@@ -68,7 +73,7 @@ void MainWindow::setupSpots(int row, int column)
             int spot = i * 10 + j;
             Box *newBox = new Box(this);
             newBox->setFixedSize(QSize(100, 150));
-            if (m_user.isBooked)
+            if (m_user.isBooked || isAdmin)
             {
                 newBox->setCheckable(false);
                 newBox->setCursor(Qt::ArrowCursor);
@@ -124,52 +129,27 @@ void MainWindow::disableSpots(QString spot)
 
 void MainWindow::on_pushButton_book_clicked()
 {
-    auto reply= QMessageBox::information(this, "Confirmation", "Are you sure?", QMessageBox::Yes, QMessageBox::No);
-    if (reply==QMessageBox::Yes) {
+    auto reply = QMessageBox::information(this, "Confirmation", "Are you sure?", QMessageBox::Yes, QMessageBox::No);
+    if (reply == QMessageBox::Yes) {
         m_user.bookStartTime = std::time(0);
         QString start = QString::number(m_user.bookStartTime);
         QString spot = getSpotCoor();
-        qDebug() << city;
         QString commandString = "UPDATE Users SET spot=" + spot + ", start=" + start + ", location = '" + locationID + "', city = '" +city+ "' WHERE username = '" + m_user.username + "'";
-        ui->label->setText(commandString);
+        // ui->label->setText(commandString);
         QSqlQuery query;
         query.exec(commandString);
-
         disableSpots(spot);
-
-        ui->pushButton_close->setDisabled(false);
-    }
-}
-
-void MainWindow::on_pushButton_close_clicked()
-{
-    std::time_t bookEndTime = std::time(0);
-    auto difference = bookEndTime - m_user.bookStartTime;
-    int seconds = difference % 60;
-    int hours = difference / 60;
-    int minutes = hours % 60;
-    hours /= 60;
-    QString timeString = QString::number(hours) + "hr " + QString::number(minutes) + "min " + QString::number(seconds) + "sec";
-    ui->label->setText(timeString);
-    QString money = QString::number(((hours*60) + minutes) * 1 );
-    QString message = "Your parking fee is: Rs " + money;
-    QString dialogMessage = "You parked your vehicle for: " + timeString + "\n" "Do you want to checkout?";
-    auto reply = QMessageBox::information(this, "Close Spot", dialogMessage, QMessageBox::Yes, QMessageBox::No);
-    if (reply == QMessageBox::Yes)
-    {
-        QMessageBox::information(this, "Cost", message);
-        QString commandString = "UPDATE Users SET spot= -1, start= -1, location='', city ='' WHERE username = '" + m_user.username + "' AND location = '" + locationID + "'";
-        QSqlQuery query;
-        query.exec(commandString);
-        Locations * locationDialog = new Locations(m_user.username);
-        locationDialog->show();
-        this->close();
     }
 }
 
 void MainWindow::on_pushButton_back_clicked()
 {
-    Locations * locationDialog = new Locations(m_user.username);
-    locationDialog->show();
-    this->close();
+    if (!isAdmin) {
+        Locations * locationDialog = new Locations(m_user.username);
+        locationDialog->show();
+        this->close();
+    }
+    else {
+        this->close();
+    }
 }

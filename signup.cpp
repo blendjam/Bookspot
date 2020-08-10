@@ -16,25 +16,6 @@ Signup::~Signup()
     delete ui;
 }
 
-bool Signup::dbOpen()
-{
-    userinfo = QSqlDatabase::addDatabase("QSQLITE");
-    userinfo.setDatabaseName("D:/qt_workspace/Bookspot/database/info.db");
-    if (!userinfo.open())
-    {
-        QMessageBox::warning(this, "404 not found", "Failed to load database");
-        return false;
-    }
-    return true;
-}
-
-void Signup::dbClose()
-{
-    userinfo.close();
-    QSqlDatabase::removeDatabase("QSQLITE");
-    return;
-}
-
 void Signup::on_pushButton_clicked()
 {
     Signup sign;
@@ -47,42 +28,40 @@ void Signup::on_pushButton_clicked()
     number = ui->lineEdit_6->text();
     address = ui->lineEdit_7->text();
 
-    if(confirm_pw != password)
+    if (confirm_pw != password)
     {
-        QMessageBox::warning(this,"Error","Passwords don't match");
+        QMessageBox::warning(this, "Error", "Passwords don't match");
     }
 
     else
     {
-        auto reply= QMessageBox::information(this, "Confirmation", "Do you confirm that the data you provided is correct?", QMessageBox:: Yes, QMessageBox:: No);
-        if(reply == QMessageBox:: Yes)
-        {
-            QMessageBox::information(this, "Success", "You have successfully signed up");
-            if (sign.dbOpen())
-            {
-                QSqlQuery qry;
+        QSqlQuery qry;
+        int count = 0;
+        if (qry.exec("SELECT * from Users where username = '" + username + "'")) {
+            while (qry.next()) {
+                count++;
+            }
+            if (count == 1) {
+                QMessageBox::information(this, "Duplicate", "Username already exists. Plese Select a unique username");
+            }
+            else {
                 qry.prepare("insert into Users (fullname, username, password, gmail, number, address, spot, start) values('"+fullname+"', '"+username+"', '"+password+"', '"+gmail+"', '"+number+"', '"+address+"', -1, -1)");
-
                 if (qry.exec())
                 {
-                    sign.dbClose();
+                    QMessageBox::information(this, "Success", "You have successfully signed up");
                     Login *login = new Login;
                     login->show();
                     this->close();
                 }
-
-
-                else{
+                else {
                     QMessageBox::information(this, "Information", "Failed to load data"), qry.lastError().text();
                 }
+
             }
-
         }
-    }
-
-    if(!sign.dbOpen())
-    {
-        QMessageBox::warning(this, "404 not found", "Failed to load database");
+        else {
+            QMessageBox::information(this, "Information", "Failed to load data");
+        }
     }
 }
 

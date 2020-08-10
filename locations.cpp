@@ -7,6 +7,7 @@ ui(new Ui::Locations),
 username(username)
 {
     ui->setupUi(this);
+    connect(ui->tableView, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(handleDoubleClicked(const QModelIndex &)));
     QSqlQuery query;
     query.prepare("SELECT City FROM Cities");
     if (query.exec()) {
@@ -23,6 +24,38 @@ username(username)
     }
 }
 
+void Locations::handleDoubleClicked(const QModelIndex &index) {
+    if (index.column() == 0) {
+        auto currentItem = ui->tableView->currentIndex();
+        int index = currentItem.row();
+
+        QString name = currentItem.data().toString();
+        QString locationID = name.toLower().split(" ").join("") + QString::number(index);
+        QSqlQuery query;
+        if (query.exec("SELECT location, city FROM Users WHERE username ='" + username + "'"))
+        {
+            query.next();
+            QSqlRecord record = query.record();
+            QString location = record.value("location").toString();
+            QString city = record.value("city").toString();
+
+            if (location != "" && city != "" && location != locationID)
+            {
+                QMessageBox::warning(this, "Already Booked", "You already have booked a spot in another Location");
+            }
+            else if (index != -1)
+            {
+                main_window = new MainWindow(username, locationID, currentCity);
+                main_window->show();
+                this->close();
+            }
+        }
+    }
+    else {
+        QMessageBox::information(this, "Invalid Column", "Double Click the name of the parking spot");
+    }
+}
+
 Locations::~Locations()
 {
     delete ui;
@@ -31,35 +64,18 @@ Locations::~Locations()
 void Locations::on_pushButton_clicked()
 {
     auto currentItem = ui->tableView->currentIndex();
-    int index = currentItem.row();
-
-    QString name = currentItem.data().toString();
-    QString locationID = name.toLower().split(" ").join("") + QString::number(index);
-    QSqlQuery query;
-    if (query.exec("SELECT location, city FROM Users WHERE username ='" + username + "'"))
-    {
-        query.next();
-        QSqlRecord record = query.record();
-        QString location = record.value("location").toString();
-        QString city = record.value("city").toString();
-
-        if (location != "" && city != "" && location != locationID)
-        {
-            QMessageBox::warning(this, "Already Booked", "You already have booked a spot in another Location");
-        }
-        else if (index != -1)
-        {
-            main_window = new MainWindow(username, locationID, currentCity);
-            main_window->show();
-            this->close();
-        }
+    if (currentItem.column() == 0) {
+        handleDoubleClicked(currentItem);
+    }
+    else {
+        QMessageBox::information(this, "Invalid Column", "Select the name of the parking spot");
     }
 }
 
 void Locations::on_pushButton_2_clicked()
 {
-    auto reply = QMessageBox::information(this,"Confirmation","Are you sure?", QMessageBox:: Yes, QMessageBox:: No);
-    if(reply == QMessageBox:: Yes){
+    auto reply = QMessageBox::information(this, "Confirmation", "Are you sure?", QMessageBox::Yes, QMessageBox::No);
+    if (reply == QMessageBox::Yes) {
         Login* loginWindow = new Login();
         loginWindow->show();
         this->close();
