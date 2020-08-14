@@ -98,8 +98,21 @@ void Login::on_pushButton_2_clicked()
 
 void Login::on_actionAdmin_triggered()
 {
-    ui->loginTitle->setText("Admin Login");
+    ui->loginTitle->setText("ADMIN");
     ui->label->hide();
     ui->pushButton_2->hide();
+    ui->lineEdit_username->clear();
+    ui->lineEdit_password->clear();
     isAdminLogin = true;
+}
+
+
+
+void Login::on_actionUser_triggered()
+{
+    ui->loginTitle->setText("USER");
+    ui->label->show();
+    ui->pushButton_2->show();
+    isAdminLogin = false;
+
 }

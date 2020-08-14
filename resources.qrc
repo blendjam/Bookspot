@@ -2,5 +2,6 @@
     <qresource prefix="/resourses">
         <file>img/student.png</file>
         <file>database/info.db</file>
+        <file>img/parked.png</file>
     </qresource>
 </RCC>

@@ -16,6 +16,18 @@
     <verstretch>0</verstretch>
    </sizepolicy>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>626</width>
+    <height>640</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>626</width>
+    <height>640</height>
+   </size>
+  </property>
   <property name="font">
    <font>
     <family>SansSerif</family>
@@ -37,7 +49,7 @@
         padding: 10px;
     }
     Box::checked{
-	    image: url(:/resourses/img/student.png);
+	    image: url(:/resourses/img/parked.png);
     }
     Box::indicator{
         width:0;
@@ -102,12 +114,12 @@
      <rect>
       <x>130</x>
       <y>30</y>
-      <width>481</width>
+      <width>331</width>
       <height>16</height>
      </rect>
     </property>
     <property name="text">
-     <string>TextLabel</string>
+     <string/>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_book">
@@ -147,7 +159,7 @@
      <x>0</x>
      <y>0</y>
      <width>626</width>
-     <height>20</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
