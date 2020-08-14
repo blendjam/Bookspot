@@ -1,9 +1,10 @@
 ﻿#include "adminwindow.h"
 #include "mainwindow.h"
 #include "ui_adminwindow.h"
+#include "login.h"
 
 AdminWindow::AdminWindow(QString locationID, QString city, QWidget *parent) :
-    locationID(locationID), city(city), QMainWindow(parent), ui(new Ui::AdminWindow)
+     QMainWindow(parent), ui(new Ui::AdminWindow), locationID(locationID), city(city)
 {
     ui->setupUi(this);
 
@@ -26,10 +27,16 @@ void AdminWindow::on_pushButton_2_clicked()
 {
     QString username = ui->lineEdit->text();
     QSqlQuery qry;
-    qry.exec("Select * from Users where username = '"+username+"'");
+    qry.exec("Select * from Users where username = '"+username+"' AND location = '"+ locationID +"'");
     qry.next();
     QSqlRecord record = qry.record();
     int bookStartTime = record.value("start").toInt();
+    qDebug()<< bookStartTime;
+    if(bookStartTime < 1){
+
+        QMessageBox::information(this,"Title","User hasn't booked");
+        return;
+    }
 
     std::time_t bookEndTime = std::time(0);
     auto difference = bookEndTime - bookStartTime;
@@ -39,8 +46,8 @@ void AdminWindow::on_pushButton_2_clicked()
     hours /= 60;
     QString timeString = QString::number(hours) + "hr " + QString::number(minutes) + "min " + QString::number(seconds) + "sec";
     QString money = QString::number(((hours*60) + minutes) * 1);
-    QString message = "Your parking fee is: Rs " + money;
-    QString dialogMessage = "You parked your vehicle for: " + timeString + "\n" "Do you want to checkout?";
+    QString message = "The parking fee of the user is: Rs " + money;
+    QString dialogMessage = "User parked the vehicle for: " + timeString + "\n" "Do you want to checkout?";
     auto reply = QMessageBox::information(this, "Close Spot", dialogMessage, QMessageBox::Yes, QMessageBox::No);
     if (reply == QMessageBox::Yes)
     {
@@ -65,3 +72,15 @@ void AdminWindow::on_pushButton_view_clicked()
     MainWindow * w = new MainWindow("ADMINADMIN", locationID, city);
     w->show();
 }
+
+void AdminWindow::on_pushButton_back_clicked()
+{
+    auto reply = QMessageBox::information(this, "Confirmation", "Are you sure?", QMessageBox::Yes, QMessageBox::No);
+    if (reply == QMessageBox::Yes){
+        Login* loginWindow = new Login();
+        loginWindow->show();
+        this->close();
+    }
+}
+
+

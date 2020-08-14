@@ -39,7 +39,7 @@ void Locations::handleDoubleClicked(const QModelIndex &index) {
             QString location = record.value("location").toString();
             QString city = record.value("city").toString();
 
-            if (location != "" && city != "" && location != locationID)
+            if (location != "location" && city != "" && location != locationID)
             {
                 QMessageBox::warning(this, "Already Booked", "You already have booked a spot in another Location");
             }
@@ -92,7 +92,11 @@ void Locations::on_comboBox_city_currentIndexChanged(const QString &City)
     if (query.exec()) {
         model->setQuery(query);
         ui->tableView->setModel(model);
-        ui->tableView->setColumnWidth(0, ui->tableView->width() - ui->tableView->columnWidth(1));
+        ui->tableView->setColumnWidth(0, ui->tableView->width() - ui->tableView->columnWidth(1)- 50);
     }
 
 }
+
+
+
+

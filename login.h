@@ -35,6 +35,8 @@ private slots:
 
     void on_actionAdmin_triggered();
 
+    void on_actionUser_triggered();
+
 private:
     Ui::Login *ui;
     bool isAdminLogin;

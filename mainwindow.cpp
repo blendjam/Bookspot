@@ -11,6 +11,9 @@ MainWindow::MainWindow(QString username, QString locationID, QString city, QWidg
         ui->pushButton_book->hide();
         ui->pushButton_back->setText("Close");
     }
+    else{
+        isAdmin = false;
+    }
 
     bookedBoxes = new int *[3];
     for (int i = 0; i < 3; i++)

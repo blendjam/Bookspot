@@ -100,7 +100,7 @@
    <widget class="QLabel" name="loginTitle">
     <property name="geometry">
      <rect>
-      <x>100</x>
+      <x>110</x>
       <y>20</y>
       <width>101</width>
       <height>41</height>
@@ -115,20 +115,20 @@
      </font>
     </property>
     <property name="text">
-     <string>Login</string>
+     <string>USER</string>
     </property>
    </widget>
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>80</x>
+      <x>70</x>
       <y>290</y>
-      <width>141</width>
+      <width>161</width>
       <height>20</height>
      </rect>
     </property>
     <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Don't have account?&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Don't have an account?&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_2">
@@ -151,7 +151,7 @@
      <x>0</x>
      <y>0</y>
      <width>300</width>
-     <height>20</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuOptions">
@@ -160,6 +160,7 @@
     </property>
     <addaction name="separator"/>
     <addaction name="actionAdmin"/>
+    <addaction name="actionUser"/>
    </widget>
    <addaction name="menuOptions"/>
   </widget>
@@ -167,6 +168,11 @@
   <action name="actionAdmin">
    <property name="text">
     <string>Admin</string>
+   </property>
+  </action>
+  <action name="actionUser">
+   <property name="text">
+    <string>User</string>
    </property>
   </action>
  </widget>
