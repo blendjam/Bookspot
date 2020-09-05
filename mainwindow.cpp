@@ -138,7 +138,6 @@ void MainWindow::on_pushButton_book_clicked()
         QString start = QString::number(m_user.bookStartTime);
         QString spot = getSpotCoor();
         QString commandString = "UPDATE Users SET spot=" + spot + ", start=" + start + ", location = '" + locationID + "', city = '" +city+ "' WHERE username = '" + m_user.username + "'";
-        // ui->label->setText(commandString);
         QSqlQuery query;
         query.exec(commandString);
         disableSpots(spot);

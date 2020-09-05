@@ -7,6 +7,7 @@ ui(new Ui::Locations),
 username(username)
 {
     ui->setupUi(this);
+    this->setWindowTitle("Locations");
     connect(ui->tableView, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(handleDoubleClicked(const QModelIndex &)));
     QSqlQuery query;
     query.prepare("SELECT City FROM Cities");
@@ -39,7 +40,7 @@ void Locations::handleDoubleClicked(const QModelIndex &index) {
             QString location = record.value("location").toString();
             QString city = record.value("city").toString();
 
-            if (location != "location" && city != "" && location != locationID)
+            if (location != "" && location != locationID)
             {
                 QMessageBox::warning(this, "Already Booked", "You already have booked a spot in another Location");
             }
