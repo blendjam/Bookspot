@@ -7,6 +7,7 @@ ui(new Ui::Locations),
 username(username)
 {
     ui->setupUi(this);
+    this->setWindowTitle("Locations");
     connect(ui->tableView, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(handleDoubleClicked(const QModelIndex &)));
     QSqlQuery query;
     query.prepare("SELECT City FROM Cities");
@@ -27,27 +28,30 @@ username(username)
 void Locations::handleDoubleClicked(const QModelIndex &index) {
     if (index.column() == 0) {
         auto currentItem = ui->tableView->currentIndex();
-        int index = currentItem.row();
 
-        QString name = currentItem.data().toString();
-        QString locationID = name.toLower().split(" ").join("") + QString::number(index);
+        QString locationID = currentItem.data().toString();
         QSqlQuery query;
-        if (query.exec("SELECT location, city FROM Users WHERE username ='" + username + "'"))
+        query.prepare("SELECT * FROM Users WHERE username = ?");
+        query.bindValue(0, username);
+
+        if (query.exec())
         {
             query.next();
             QSqlRecord record = query.record();
             QString location = record.value("location").toString();
             QString city = record.value("city").toString();
 
-            if (location != "location" && city != "" && location != locationID)
-            {
-                QMessageBox::warning(this, "Already Booked", "You already have booked a spot in another Location");
-            }
-            else if (index != -1)
+
+            if ((city == currentCity && location == locationID) || (city == "" && location == ""))
             {
                 main_window = new MainWindow(username, locationID, currentCity);
                 main_window->show();
                 this->close();
+            }
+            else
+            {
+                QMessageBox::warning(this, "Already Booked", "You already have booked a spot at " + location +", " + city);
+                return;
             }
         }
     }

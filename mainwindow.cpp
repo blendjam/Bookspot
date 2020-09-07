@@ -6,12 +6,14 @@ MainWindow::MainWindow(QString username, QString locationID, QString city, QWidg
     : QMainWindow(parent), ui(new Ui::MainWindow), locationID(locationID), city(city)
 {
     ui->setupUi(this);
-    if (username == "ADMINADMIN") {
+    if (username == "ADMINADMIN")
+    {
         isAdmin = true;
         ui->pushButton_book->hide();
         ui->pushButton_back->setText("Close");
     }
-    else{
+    else
+    {
         isAdmin = false;
     }
 
@@ -54,7 +56,7 @@ MainWindow::MainWindow(QString username, QString locationID, QString city, QWidg
 int **MainWindow::getBookedBoxes()
 {
     QSqlQuery query;
-    QString queryStirng = "SELECT spot FROM Users WHERE location = '" + locationID + "' AND city = '"+city+"'";
+    QString queryStirng = "SELECT spot FROM Users WHERE location = '" + locationID + "' AND city = '" + city + "'";
     query.exec(queryStirng);
     while (query.next())
     {
@@ -133,12 +135,12 @@ void MainWindow::disableSpots(QString spot)
 void MainWindow::on_pushButton_book_clicked()
 {
     auto reply = QMessageBox::information(this, "Confirmation", "Are you sure?", QMessageBox::Yes, QMessageBox::No);
-    if (reply == QMessageBox::Yes) {
+    if (reply == QMessageBox::Yes)
+    {
         m_user.bookStartTime = std::time(0);
         QString start = QString::number(m_user.bookStartTime);
         QString spot = getSpotCoor();
-        QString commandString = "UPDATE Users SET spot=" + spot + ", start=" + start + ", location = '" + locationID + "', city = '" +city+ "' WHERE username = '" + m_user.username + "'";
-        // ui->label->setText(commandString);
+        QString commandString = "UPDATE Users SET spot=" + spot + ", start=" + start + ", location = '" + locationID + "', city = '" + city + "' WHERE username = '" + m_user.username + "'";
         QSqlQuery query;
         query.exec(commandString);
         disableSpots(spot);
@@ -147,12 +149,14 @@ void MainWindow::on_pushButton_book_clicked()
 
 void MainWindow::on_pushButton_back_clicked()
 {
-    if (!isAdmin) {
-        Locations * locationDialog = new Locations(m_user.username);
+    if (!isAdmin)
+    {
+        Locations *locationDialog = new Locations(m_user.username);
         locationDialog->show();
         this->close();
     }
-    else {
+    else
+    {
         this->close();
     }
 }

@@ -14,7 +14,6 @@ Login::Login(QWidget *parent)
 bool Login::dbOpen()
 {
     userInfo = QSqlDatabase::addDatabase("QSQLITE");
-    // userInfo.setDatabaseName("F:/Qt Projects/Bookspot/Bookspot/database/info.db");
     userInfo.setDatabaseName("../Bookspot/database/info.db");
     if (!userInfo.open())
     {
@@ -38,12 +37,13 @@ void Login::on_pushButton_clicked()
 {
     QSqlQuery qry;
 
-    QString username = ui->lineEdit_username->text();
-    QString password = ui->lineEdit_password->text();
+    QString INPUTusername = ui->lineEdit_username->text();
+    QString INPUTpassword = ui->lineEdit_password->text();
 
     if (!isAdminLogin) {
-        qry.prepare("select * from Users where username='" + username + "' and password='" + password + "'");
-
+        qry.prepare("select * from Users WHERE username = ? and password = ?");
+        qry.bindValue(0, INPUTusername);
+        qry.bindValue(1, INPUTpassword);
         if (qry.exec())
         {
             int count = 0;
@@ -52,7 +52,7 @@ void Login::on_pushButton_clicked()
 
             if (count == 1)
             {
-                Locations *location_window = new Locations(username);
+                Locations *location_window = new Locations(INPUTusername);
                 location_window->show();
                 this->close();
             }
@@ -65,14 +65,14 @@ void Login::on_pushButton_clicked()
     }
     else {
         qry.prepare("SELECT id, city FROM Admins WHERE username = ? and password = ?");
-        qry.bindValue(0, username);
-        qry.bindValue(1, password);
+        qry.bindValue(0, INPUTusername);
+        qry.bindValue(1, INPUTpassword);
         if (qry.exec()) {
             int count = 0;
             QString city, id;
             while (qry.next()) {
                 QSqlRecord record = qry.record();
-                id = record.value("ID").toString();
+                id = record.value("id").toString();
                 city = record.value("city").toString();
                 count++;
             }
@@ -98,8 +98,8 @@ void Login::on_pushButton_2_clicked()
 
 void Login::on_actionAdmin_triggered()
 {
-    ui->loginTitle->setText("ADMIN");
     ui->label->hide();
+     ui->label_2->hide();
     ui->pushButton_2->hide();
     ui->lineEdit_username->clear();
     ui->lineEdit_password->clear();
@@ -110,8 +110,8 @@ void Login::on_actionAdmin_triggered()
 
 void Login::on_actionUser_triggered()
 {
-    ui->loginTitle->setText("USER");
     ui->label->show();
+     ui->label_2->show();
     ui->pushButton_2->show();
     isAdminLogin = false;
 
