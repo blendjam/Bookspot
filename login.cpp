@@ -98,7 +98,6 @@ void Login::on_pushButton_2_clicked()
 
 void Login::on_actionAdmin_triggered()
 {
-    ui->loginTitle->setText("<html><head/><body><p align='center'>ADMIN</p></body></html>");
     ui->label->hide();
      ui->label_2->hide();
     ui->pushButton_2->hide();
@@ -111,7 +110,6 @@ void Login::on_actionAdmin_triggered()
 
 void Login::on_actionUser_triggered()
 {
-    ui->loginTitle->setText("<html><head/><body><p align='center'>BOOKSPOT</p></body></html>");
     ui->label->show();
      ui->label_2->show();
     ui->pushButton_2->show();

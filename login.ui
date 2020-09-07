@@ -32,11 +32,15 @@
    <string notr="true">
 #centralwidget{
 	color: #2f365e;
-	/* border-image: url(:/resourses/img/bg.png) 0 0 0 0 stretch stretch; */
 	 border-image: url(:/resourses/img/car2.png) 0 0 0 0 stretch stretch; 
  	background-color: #585f7e;
 }
 
+QDialog
+{
+	color: white;
+	background: qlineargradient(spread:pad, x1:0.516, y1:1, x2:0.477528, y2:0, stop:0 rgba(47, 54, 94, 255), stop:1 rgba(88, 95, 126, 255))
+}
 QLineEdit {
 	background-color: rgba(255, 255, 255, 0.77);
     border-radius: 10px;
@@ -90,7 +94,7 @@ color: white;</string>
     <property name="font">
      <font>
       <family>Calibri</family>
-      <pointsize>26</pointsize>
+      <pointsize>28</pointsize>
       <weight>75</weight>
       <bold>true</bold>
      </font>

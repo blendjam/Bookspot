@@ -2,14 +2,13 @@
 #include "ui_signup.h"
 #include "login.h"
 #include <QMessageBox>
+#include <map>
 #include <QValidator>
 
 Signup::Signup(QWidget *parent) : QDialog(parent),
                                   ui(new Ui::Signup)
 {
     ui->setupUi(this);
-    ui->progressBar->setRange(0, 12);
-    ui->progressBar->setValue(0);
 }
 
 Signup::~Signup()
@@ -27,11 +26,24 @@ void Signup::on_pushButton_clicked()
     gmail = ui->lineEdit_5->text();
     number = ui->lineEdit_6->text();
     address = ui->lineEdit_7->text();
+    confirm_pw = ui->lineEdit_4->text();
+    if(fullname.length() == 0 || username.length() == 0 || password.length() == 0
+       || gmail.length() == 0 || number.length() == 0 || address.length() == 0 || confirm_pw.length() == 0)
+    {
+
+        QMessageBox::warning(this, "Empty", "Please fill all the fileds");
+        return;
+    }
     bool test;
     number.toInt(&test, 10);
     if (!test)
     {
         QMessageBox::warning(this, "Not a Number", "Please Enter a valid number");
+        return;
+    }
+    if(password != confirm_pw)
+    {
+        QMessageBox::warning(this, "Invalid Password", "Password and Confirm Password didn't match");
         return;
     }
     if (number.length() != 10)
@@ -89,21 +101,27 @@ void Signup::on_pushButton_2_clicked()
 
 void Signup::on_lineEdit_3_textEdited(const QString &arg1)
 {
-    ui->progressBar->setValue(arg1.length());
-    QString color = "red";
+    QString color ;
     if (arg1.length() < 5)
     {
-        ui->label_strength->setText("Weak");
+        color ="red";
     }
     else if (arg1.length() < 8)
     {
         color = "orange";
-        ui->label_strength->setText("Medium");
+    }
+    else if(arg1.length() < 12)
+    {
+        color = "yellow";
+    } else if(arg1.length() <= 15)
+    {
+        color = "green";
     }
     else
     {
-        color = "#43f030";
-        ui->label_strength->setText("Strong");
+        QMessageBox::warning(this, "Error!", "Password must be less than 16 characters");
+        ui->lineEdit_3->backspace();
     }
-    ui->progressBar->setStyleSheet(" QProgressBar::chunk {background-color: " + color + "}");
+
+    ui->lineEdit_3->setStyleSheet("color: " + color);
 }

@@ -7,19 +7,19 @@
     <x>0</x>
     <y>0</y>
     <width>430</width>
-    <height>591</height>
+    <height>645</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>430</width>
-    <height>375</height>
+    <height>645</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>430</width>
-    <height>16777215</height>
+    <height>645</height>
    </size>
   </property>
   <property name="font">
@@ -67,9 +67,9 @@ width: 100%;
   <widget class="QPushButton" name="pushButton">
    <property name="geometry">
     <rect>
-     <x>130</x>
-     <y>530</y>
-     <width>181</width>
+     <x>124</x>
+     <y>580</y>
+     <width>180</width>
      <height>41</height>
     </rect>
    </property>
@@ -229,7 +229,7 @@ color: white;</string>
    <property name="geometry">
     <rect>
      <x>100</x>
-     <y>410</y>
+     <y>450</y>
      <width>231</width>
      <height>31</height>
     </rect>
@@ -239,7 +239,7 @@ color: white;</string>
    <property name="geometry">
     <rect>
      <x>110</x>
-     <y>390</y>
+     <y>430</y>
      <width>71</width>
      <height>22</height>
     </rect>
@@ -260,7 +260,7 @@ color: white;</string>
    <property name="geometry">
     <rect>
      <x>100</x>
-     <y>340</y>
+     <y>380</y>
      <width>231</width>
      <height>31</height>
     </rect>
@@ -270,7 +270,7 @@ color: white;</string>
    <property name="geometry">
     <rect>
      <x>110</x>
-     <y>320</y>
+     <y>360</y>
      <width>101</width>
      <height>22</height>
     </rect>
@@ -291,8 +291,8 @@ color: white;</string>
    <property name="geometry">
     <rect>
      <x>100</x>
-     <y>480</y>
-     <width>234</width>
+     <y>520</y>
+     <width>231</width>
      <height>31</height>
     </rect>
    </property>
@@ -301,7 +301,7 @@ color: white;</string>
    <property name="geometry">
     <rect>
      <x>110</x>
-     <y>460</y>
+     <y>500</y>
      <width>81</width>
      <height>22</height>
     </rect>
@@ -328,43 +328,39 @@ color: white;</string>
     </rect>
    </property>
   </widget>
-  <widget class="QWidget" name="layoutWidget">
+  <widget class="QLineEdit" name="lineEdit_4">
    <property name="geometry">
     <rect>
      <x>100</x>
-     <y>280</y>
-     <width>235</width>
-     <height>16</height>
+     <y>310</y>
+     <width>231</width>
+     <height>31</height>
     </rect>
    </property>
-   <layout class="QHBoxLayout" name="horizontalLayout">
-    <property name="sizeConstraint">
-     <enum>QLayout::SetNoConstraint</enum>
-    </property>
-    <item>
-     <widget class="QLabel" name="label_strength">
-      <property name="styleSheet">
-       <string notr="true"/>
-      </property>
-      <property name="text">
-       <string>Password Strength:</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QProgressBar" name="progressBar">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="styleSheet">
-       <string notr="true"/>
-      </property>
-      <property name="value">
-       <number>24</number>
-      </property>
-     </widget>
-    </item>
-   </layout>
+   <property name="echoMode">
+    <enum>QLineEdit::Password</enum>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>290</y>
+     <width>131</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Calibri</family>
+     <pointsize>10</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>CONFIRM PASSWORD</string>
+   </property>
   </widget>
  </widget>
  <resources/>
