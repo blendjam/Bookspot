@@ -3,5 +3,6 @@
         <file>database/info.db</file>
         <file>img/parked.png</file>
         <file>img/car2.png</file>
+        <file>img/chevron-down.svg</file>
     </qresource>
 </RCC>

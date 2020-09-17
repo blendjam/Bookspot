@@ -9,6 +9,7 @@ Login::Login(QWidget *parent)
 {
     ui->setupUi(this);
     this->setWindowTitle("Bookspot");
+    ui->label_3->hide();
 }
 
 bool Login::dbOpen()
@@ -41,6 +42,7 @@ void Login::on_pushButton_clicked()
     QString INPUTpassword = ui->lineEdit_password->text();
 
     if (!isAdminLogin) {
+
         qry.prepare("select * from Users WHERE username = ? and password = ?");
         qry.bindValue(0, INPUTusername);
         qry.bindValue(1, INPUTpassword);
@@ -64,20 +66,20 @@ void Login::on_pushButton_clicked()
         }
     }
     else {
-        qry.prepare("SELECT id, city FROM Admins WHERE username = ? and password = ?");
+        qry.prepare("SELECT place, city FROM Admins WHERE username = ? and password = ?");
         qry.bindValue(0, INPUTusername);
         qry.bindValue(1, INPUTpassword);
         if (qry.exec()) {
             int count = 0;
-            QString city, id;
+            QString city, place;
             while (qry.next()) {
                 QSqlRecord record = qry.record();
-                id = record.value("id").toString();
+                place = record.value("place").toString();
                 city = record.value("city").toString();
                 count++;
             }
             if (count == 1) {
-                AdminWindow * adminWindow = new AdminWindow(id, city);
+                AdminWindow * adminWindow = new AdminWindow(place, city);
                 adminWindow->show();
                 this->close();
             }
@@ -98,8 +100,10 @@ void Login::on_pushButton_2_clicked()
 
 void Login::on_actionAdmin_triggered()
 {
+    ui->label_3->show();
     ui->label->hide();
-     ui->label_2->hide();
+    ui->label_2->hide();
+    ui->pushButton->setText("LOGIN");
     ui->pushButton_2->hide();
     ui->lineEdit_username->clear();
     ui->lineEdit_password->clear();
@@ -110,9 +114,13 @@ void Login::on_actionAdmin_triggered()
 
 void Login::on_actionUser_triggered()
 {
+    ui->label_3->hide();
     ui->label->show();
-     ui->label_2->show();
+    ui->label_2->show();
+    ui->pushButton->setText("LOGIN");
     ui->pushButton_2->show();
+    ui->lineEdit_username->clear();
+    ui->lineEdit_password->clear();
     isAdminLogin = false;
 
 }

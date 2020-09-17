@@ -6,6 +6,7 @@ MainWindow::MainWindow(QString username, QString locationID, QString city, QWidg
     : QMainWindow(parent), ui(new Ui::MainWindow), locationID(locationID), city(city)
 {
     ui->setupUi(this);
+    this->setWindowTitle(locationID);
     if (username == "ADMINADMIN")
     {
         isAdmin = true;
@@ -16,6 +17,7 @@ MainWindow::MainWindow(QString username, QString locationID, QString city, QWidg
     {
         isAdmin = false;
     }
+
 
     bookedBoxes = new int *[3];
     for (int i = 0; i < 3; i++)
