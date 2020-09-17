@@ -31,28 +31,30 @@ void Signup::on_pushButton_clicked()
        || gmail.length() == 0 || number.length() == 0 || address.length() == 0 || confirm_pw.length() == 0)
     {
 
-        QMessageBox::warning(this, "Empty", "Please fill all the fileds");
+        QMessageBox::warning(this, "Empty", "Please fill all the fields");
         return;
     }
     bool test;
-    number.toInt(&test, 10);
+    number.toLongLong(&test, 10);
+
+
     if (!test)
     {
-        QMessageBox::warning(this, "Not a Number", "Please Enter a valid number");
+        QMessageBox::warning(this, "Not a Number", "Please enter a valid number");
         return;
     }
     if(password != confirm_pw)
     {
-        QMessageBox::warning(this, "Invalid Password", "Password and Confirm Password didn't match");
+        QMessageBox::warning(this, "Invalid Password", "Passwords didn't match");
         return;
     }
     if (number.length() != 10)
     {
-        QMessageBox::warning(this, "Number Length", "Please Enter a number of size 10");
+        QMessageBox::warning(this, "Number Length", "Please enter a number of ten digits");
         return;
     }
 
-    if (!(gmail.contains("@") && gmail.contains(".com")))
+    if (!(gmail.contains("@gmail.com")) && !(gmail.contains("@hotmail.com")) && !(gmail.contains("@yahoo.com") ))
     {
         QMessageBox::warning(this, "Error", "Please enter valid email format");
         return;
@@ -72,7 +74,7 @@ void Signup::on_pushButton_clicked()
         }
         else
         {
-            qry.prepare("insert into Users (fullname, username, password, gmail, number, address, spot, start) values('" + fullname + "', '" + username + "', '" + password + "', '" + gmail + "', '" + number + "', '" + address + "', -1, -1)");
+            qry.prepare("insert into Users (fullname, username, password, email, number, address, spot, start) values('" + fullname + "', '" + username + "', '" + password + "', '" + gmail + "', '" + number + "', '" + address + "', -1, -1)");
             if (qry.exec())
             {
                 QMessageBox::information(this, "Success", "You have successfully signed up");

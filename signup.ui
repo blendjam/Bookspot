@@ -53,9 +53,6 @@ QProgressBar {
     text-align: center;
 }
 
-QProgressBar::chunk {
-    background-color: #43f030;
-}
 
 QPushButton{
 background: white;

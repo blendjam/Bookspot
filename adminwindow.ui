@@ -13,6 +13,47 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">#centralwidget{
+       background: qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0 rgba(47, 54, 94, 255), stop:1 rgba(88, 95, 126, 255));
+   }
+ #pushButton{
+        background: #1059ff;
+        color: #eeeeee;
+        border-radius: 10px;
+    }
+#pushButton_2{
+background: white;
+border-radius: 10px;
+color: #2f365e;
+width: 100%;
+}
+
+QDialog{
+	background: qlineargradient(spread:pad, x1:0.516, y1:1, x2:0.477528, y2:0, stop:0 rgba(47, 54, 94, 255), stop:1 rgba(88, 95, 126, 255));
+
+}
+
+QMessageBox QLabel {
+    color: white;
+}
+
+#pushButton_back{
+background: white;
+border-radius: 10px;
+color: #2f365e;
+width: 100%;
+}
+#pushButton_view{
+background: white;
+border-radius: 10px;
+color: #2f365e;
+width: 100%;
+}
+#linEdit{
+border-radius: 10px;
+}</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
@@ -49,6 +90,10 @@
       <height>21</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">color: #2f365e;
+border-radius: 10px;</string>
+    </property>
    </widget>
    <widget class="QLabel" name="label">
     <property name="geometry">
@@ -58,6 +103,9 @@
       <width>111</width>
       <height>16</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: white</string>
     </property>
     <property name="text">
      <string>Enter User's Username</string>
@@ -118,7 +166,7 @@
      <x>0</x>
      <y>0</y>
      <width>640</width>
-     <height>20</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

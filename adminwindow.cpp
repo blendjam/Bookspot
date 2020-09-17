@@ -2,20 +2,22 @@
 #include "mainwindow.h"
 #include "ui_adminwindow.h"
 #include "login.h"
+#include "locations.h"
 
 AdminWindow::AdminWindow(QString locationID, QString city, QWidget *parent) : QMainWindow(parent), ui(new Ui::AdminWindow), locationID(locationID), city(city)
 {
     ui->setupUi(this);
-    this->setWindowTitle("Admin Window");
-
+    this->setWindowTitle("Admin Locations");
     QSqlQueryModel *model = new QSqlQueryModel();
     QSqlQuery query;
-    query.prepare("SELECT fullname, username, number, address, gmail FROM Users WHERE location = ?");
+    query.prepare("SELECT fullname, username, number, address, email FROM Users WHERE location = ?");
     query.bindValue(0, locationID);
     if (query.exec())
     {
         model->setQuery(query);
         ui->tableView->setModel(model);
+        ui->tableView->setColumnWidth(3, ui->tableView->width()*0.2);
+        ui->tableView->horizontalHeader()->setStretchLastSection(true);
     }
 }
 
@@ -49,8 +51,7 @@ void AdminWindow::on_pushButton_2_clicked()
     QString timeString = QString::number(hours) + "hr " + QString::number(minutes) + "min " + QString::number(seconds) + "sec";
     QString money = QString::number(((hours * 60) + minutes) * 1);
     QString message = "The parking fee of the user is: Rs " + money;
-    QString dialogMessage = "User parked the vehicle for: " + timeString + "\n"
-                                                                           "Do you want to checkout?";
+    QString dialogMessage = "User parked the vehicle for: " + timeString + "\n" + "Do you want to checkout?";
     auto reply = QMessageBox::information(this, "Close Spot", dialogMessage, QMessageBox::Yes, QMessageBox::No);
     if (reply == QMessageBox::Yes)
     {
@@ -60,7 +61,7 @@ void AdminWindow::on_pushButton_2_clicked()
         query.exec(commandString);
 
         QSqlQueryModel *model = new QSqlQueryModel();
-        query.prepare("SELECT fullname, username, number, address, gmail FROM Users WHERE location = ?");
+        query.prepare("SELECT fullname, username, number, address, email FROM Users WHERE location = ?");
         query.bindValue(0, locationID);
         if (query.exec())
         {

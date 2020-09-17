@@ -28,7 +28,6 @@ username(username)
 void Locations::handleDoubleClicked(const QModelIndex &index) {
     if (index.column() == 0) {
         auto currentItem = ui->tableView->currentIndex();
-
         QString locationID = currentItem.data().toString();
         QSqlQuery query;
         query.prepare("SELECT * FROM Users WHERE username = ?");
@@ -96,7 +95,9 @@ void Locations::on_comboBox_city_currentIndexChanged(const QString &City)
     if (query.exec()) {
         model->setQuery(query);
         ui->tableView->setModel(model);
+        //ui->tableView->horizontalHeader()->setStretchLastSection(true);
         ui->tableView->setColumnWidth(0, ui->tableView->width() - ui->tableView->columnWidth(1)- 50);
+
     }
 
 }
