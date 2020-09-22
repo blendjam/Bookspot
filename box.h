@@ -3,13 +3,16 @@
 
 #include <QRadioButton>
 #include <QMessageBox>
+#include <QString>
 
 class Box : public QRadioButton
 {
     Q_OBJECT
-
+    QString type;
 public:
-    Box(QWidget *parent = nullptr);
+    Box(QString type,QWidget *parent = nullptr);
+    void onClick();
+    void showVehicle(QString type);
 };
 
 #endif // BOX_H

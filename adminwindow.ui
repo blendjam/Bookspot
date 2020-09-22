@@ -150,7 +150,7 @@ border-radius: 10px;</string>
     <property name="geometry">
      <rect>
       <x>540</x>
-      <y>410</y>
+      <y>430</y>
       <width>80</width>
       <height>21</height>
      </rect>
@@ -159,6 +159,50 @@ border-radius: 10px;</string>
      <string>Logout</string>
     </property>
    </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>410</y>
+      <width>110</width>
+      <height>43</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>Car Rate (in Rs.)</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="lineEdit_car_rate"/>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>410</y>
+      <width>110</width>
+      <height>43</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>Bike Rate (in Rs.)</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="lineEdit_bike_rate"/>
+     </item>
+    </layout>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -166,11 +210,10 @@ border-radius: 10px;</string>
      <x>0</x>
      <y>0</y>
      <width>640</width>
-     <height>21</height>
+     <height>20</height>
     </rect>
    </property>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections>

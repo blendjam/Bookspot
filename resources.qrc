@@ -4,5 +4,10 @@
         <file>img/parked.png</file>
         <file>img/car2.png</file>
         <file>img/chevron-down.svg</file>
+        <file>img/bike.png</file>
+        <file>img/car1.png</file>
+        <file>img/car3.png</file>
+        <file>img/car4.png</file>
+        <file>img/login_bg.png</file>
     </qresource>
 </RCC>

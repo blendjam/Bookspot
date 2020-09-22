@@ -20,7 +20,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QString username, QString locationID, QString city, QWidget *parent = nullptr);
+    explicit MainWindow(QString username, QString locationID, QString city, QString type = "", QWidget *parent = nullptr);
     ~MainWindow();
 
 private slots:
@@ -41,6 +41,7 @@ private:
     int **bookedBoxes;
     QString locationID;
     QString city;
+    QString vehicleType;
     bool isAdmin;
 };
 

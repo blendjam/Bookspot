@@ -32,7 +32,7 @@
    <string notr="true">
 #centralwidget{
 	color: #2f365e;
-	 border-image: url(:/resourses/img/car2.png) 0 0 0 0 stretch stretch; 
+	 border-image: url(:/resourses/img/login_bg.png) 0 0 0 0 stretch stretch; 
  	background-color: #585f7e;
 }
 
@@ -246,7 +246,7 @@ color: white;</string>
      </rect>
     </property>
     <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;-------------------------ADMINISTRATOR----------------------------&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;-----------------------ADMINISTRATOR----------------------------&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
   </widget>
@@ -256,7 +256,7 @@ color: white;</string>
      <x>0</x>
      <y>0</y>
      <width>300</width>
-     <height>21</height>
+     <height>20</height>
     </rect>
    </property>
    <property name="styleSheet">

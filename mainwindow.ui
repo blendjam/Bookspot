@@ -47,15 +47,11 @@
         border: 5px solid #6e7390;
         padding: 10px;
     }
-    Box::checked{
-	  image: url(:/resourses/img/parked.png);
-    }
-	Box::disabled{
-	image: url(:/resourses/img/parked.png);
-	}
+   
+
     Box::indicator{
-        width:0;
-        height:0;
+        width:0px;
+        height:0px;
     }
 #pushButton_back{
 background: white;
@@ -187,7 +183,7 @@ text-align: center;</string>
      <x>0</x>
      <y>0</y>
      <width>626</width>
-     <height>21</height>
+     <height>20</height>
     </rect>
    </property>
   </widget>

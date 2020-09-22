@@ -41,7 +41,8 @@ void Login::on_pushButton_clicked()
     QString INPUTusername = ui->lineEdit_username->text();
     QString INPUTpassword = ui->lineEdit_password->text();
 
-    if (!isAdminLogin) {
+    if (!isAdminLogin)
+    {
 
         qry.prepare("select * from Users WHERE username = ? and password = ?");
         qry.bindValue(0, INPUTusername);
@@ -61,31 +62,36 @@ void Login::on_pushButton_clicked()
             else
             {
                 QMessageBox::warning(this, "Wrong Info",
-                    "username or password didn't match");
+                                     "username or password didn't match");
             }
         }
     }
-    else {
+    else
+    {
         qry.prepare("SELECT place, city FROM Admins WHERE username = ? and password = ?");
         qry.bindValue(0, INPUTusername);
         qry.bindValue(1, INPUTpassword);
-        if (qry.exec()) {
+        if (qry.exec())
+        {
             int count = 0;
             QString city, place;
-            while (qry.next()) {
+            while (qry.next())
+            {
                 QSqlRecord record = qry.record();
                 place = record.value("place").toString();
                 city = record.value("city").toString();
                 count++;
             }
-            if (count == 1) {
-                AdminWindow * adminWindow = new AdminWindow(place, city);
+            if (count == 1)
+            {
+                AdminWindow *adminWindow = new AdminWindow(place, city);
                 adminWindow->show();
                 this->close();
             }
-            else {
+            else
+            {
                 QMessageBox::warning(this, "Wrong Info",
-                    "username or password didn't match");
+                                     "username or password didn't match");
             }
         }
     }
@@ -110,8 +116,6 @@ void Login::on_actionAdmin_triggered()
     isAdminLogin = true;
 }
 
-
-
 void Login::on_actionUser_triggered()
 {
     ui->label_3->hide();
@@ -122,5 +126,4 @@ void Login::on_actionUser_triggered()
     ui->lineEdit_username->clear();
     ui->lineEdit_password->clear();
     isAdminLogin = false;
-
 }

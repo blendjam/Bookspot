@@ -104,20 +104,16 @@ QMessageBox QLabel {
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">#comboBox_city{
+    <string notr="true">QComboBox{
      background: white;
 border-radius: 10px;
-color: #2f365e;
+color:  #2f365e;
     }
 
-#comboBox_city::drop-down{
+QComboBox::drop-down{
 	border-top-right-radius: 10px;
 	border-bottom-right-radius: 10px;
 	}
-QComboBox:editable {
-    background: blue;
-	color: white;
-}
 
 QComboBox:!editable, QComboBox::drop-down:editable {
      background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
@@ -189,6 +185,61 @@ QComboBox::down-arrow {
    <property name="text">
     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;We will add more cities and places in future. Stay tuned.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
+  </widget>
+  <widget class="QComboBox" name="comboBox_type">
+   <property name="geometry">
+    <rect>
+     <x>290</x>
+     <y>20</y>
+     <width>91</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QComboBox{
+     background: white;
+border-radius: 10px;
+color:  #2f365e;
+    }
+
+QComboBox::drop-down{
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+	}
+QComboBox::editable {
+    background: blue;
+}
+
+QComboBox:!editable, QComboBox::drop-down:editable {
+     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                 stop: 0 #E1E1E1, stop: 0.4 #DDDDDD,
+                                 stop: 0.5 #D8D8D8, stop: 1.0 #D3D3D3);
+}
+
+/* QComboBox gets the &quot;on&quot; state when the popup is open */
+QComboBox:!editable:on, QComboBox::drop-down:editable:on {
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #D3D3D3, stop: 0.4 #D8D8D8,
+                                stop: 0.5 #DDDDDD, stop: 1.0 #E1E1E1);
+}
+QComboBox::down-arrow {
+    image: url(:/resourses/img/chevron-down.svg);
+	top: 0px;
+	left: 0px;
+	
+}
+</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>Car</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Bike</string>
+    </property>
+   </item>
   </widget>
  </widget>
  <resources/>
