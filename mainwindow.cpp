@@ -3,7 +3,7 @@
 #include "locations.h"
 
 MainWindow::MainWindow(QString username, QString locationID, QString city, QString type, QWidget *parent)
-    : QMainWindow(parent), ui(new Ui::MainWindow), locationID(locationID), city(city), vehicleType(type.toLower())
+    : QMainWindow(parent), ui(new Ui::MainWindow), locationID(locationID), city(city), vehicleType(type.split(" ").join("").toLower())
 {
     ui->setupUi(this);
     this->setWindowTitle(locationID);
@@ -94,7 +94,6 @@ void MainWindow::setupSpots(int row, int column)
                 query.exec();
                 query.next();
                 QSqlRecord record = query.record();
-                qDebug() << record;
                 QString type = record.value(0).toString();
                 newBox->showVehicle(type);
             }

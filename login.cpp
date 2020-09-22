@@ -10,6 +10,7 @@ Login::Login(QWidget *parent)
     ui->setupUi(this);
     this->setWindowTitle("Bookspot");
     ui->label_3->hide();
+    isAdminLogin = false;
 }
 
 bool Login::dbOpen()

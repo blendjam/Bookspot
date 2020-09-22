@@ -57,11 +57,11 @@ void AdminWindow::on_pushButton_2_clicked()
     hours /= 60;
     QString timeString = QString::number(hours) + "hr " + QString::number(minutes) + "min " + QString::number(seconds) + "sec";
     QString money;
-    if (type == "car")
+    if (type == "fourwheeler")
     {
         money = QString::number(((hours * 60) + minutes) * carRate);
     }
-    else if (type == "bike")
+    else if (type == "twowheeler")
     {
         money = QString::number(((hours * 60) + minutes) * bikeRate);
     }
